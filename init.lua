@@ -562,7 +562,20 @@ update_walking_light_node = walking_light.update_node -- backward compat
 
 walking_light.update_node()
 
-walking_light.register_tool('pick')
+minetest.register_tool("walking_light:pick_mese", {
+	description = "Mese Pickaxe with light",
+	inventory_image = "walking_light_mesepick.png",
+	wield_image = "default_tool_mesepick.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=3,
+		groupcaps={
+			cracky={times={[1]=2.0, [2]=1.0, [3]=0.5}, uses=0, maxlevel=3},
+			crumbly={times={[1]=2.0, [2]=1.0, [3]=0.5}, uses=0, maxlevel=3},
+			snappy={times={[1]=2.0, [2]=1.0, [3]=0.5}, uses=0, maxlevel=3}
+		}
+	},
+})
 
 minetest.register_tool("walking_light:helmet_diamond", {
 	description = "Diamond Helmet with light",
