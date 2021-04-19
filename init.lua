@@ -116,7 +116,7 @@ local function mt_get_node_or_nil(pos)
 		return nil
 	end
 
-	node = minetest.get_node_or_nil(pos)
+	local node = minetest.get_node_or_nil(pos)
 	if not node then
 		-- Load the map at pos and try again
 		minetest.get_voxel_manip():read_from_map(pos, pos)
