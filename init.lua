@@ -21,20 +21,22 @@ local light_items = {
 	"walking_light:helmet_diamond", "walking_light:megatorch"
 }
 
-function walking_light.addLightItem(item)
+function walking_light.add_light_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
 			minetest.log("warning", "[walking_light] \"" .. item .. "\" is already light item.")
 			return
 		end
 	end
-	
+
 	table.insert(light_items, -1, item)
 end
+walking_light.addLightItem = walking_light.add_light_item -- backward compat
 
-function walking_light.getLightItems()
+function walking_light.get_light_items()
 	return light_items
 end
+walking_light.getLightItems = walking_light.get_light_items -- backward compat
 
 function walking_light.register_tool(tool)
 	local item, default, definition
@@ -54,12 +56,12 @@ function walking_light.register_tool(tool)
 		}
 	})
 
-	walking_light.addLightItem(item)
+	walking_light.add_light_item(item)
 end
 
 -- from http://lua-users.org/wiki/IteratorsTutorial
 -- useful for removing things from a table because removing from the middle makes it skip elements otherwise
-function ripairs(t)
+local function ripairs(t)
   local function ripairs_it(t,i)
     i=i-1
     local v=t[i]
@@ -107,7 +109,7 @@ local function dumppostable(t)
 	return ret
 end
 
-function mt_get_node_or_nil(pos)
+local function mt_get_node_or_nil(pos)
 	if pos == nil then
 		print("ERROR: walking_light.mt_get_node_or_nil(), pos is nil")
 		print(debug.traceback("Current Callstack:\n"))
@@ -125,7 +127,7 @@ function mt_get_node_or_nil(pos)
 
 end
 
-function mt_add_node(pos, sometable)
+local function mt_add_node(pos, sometable)
 	if pos == nil then
 		print("ERROR: walking_light.mt_add_node(), pos is nil")
 		print(debug.traceback("Current Callstack:\n"))
@@ -139,7 +141,7 @@ function mt_add_node(pos, sometable)
 	minetest.add_node(pos,sometable)
 end
 
-function round(num) 
+local function round(num)
 	return math.floor(num + 0.5) 
 end
 
@@ -445,7 +447,7 @@ local function update_light_all()
 end
 
 -- return true if item is a light item
-function is_light_item(item)
+function walking_light.is_light_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
 			return true
@@ -453,11 +455,12 @@ function is_light_item(item)
 	end
 	return false
 end
+is_light_item = walking_light.is_light_item -- backward compat
 
 -- returns a string, the name of the item found that is a light item
-function get_wielded_light_item(player)
+function walking_light.get_wielded_light_item(player)
 	local wielded_item = player:get_wielded_item():get_name()
-	if is_light_item(wielded_item) then
+	if walking_light.is_light_item(wielded_item) then
 		return wielded_item
 	end
 
@@ -477,11 +480,13 @@ function get_wielded_light_item(player)
 
 	return nil
 end
+get_wielded_light_item = walking_light.get_wielded_light_item -- backward compat
 
 -- return true if player is wielding a light item
-function wielded_light(player)
-	return get_wielded_light_item(player) ~= nil
+function walking_light.wields_light(player)
+	return walking_light.get_wielded_light_item(player) ~= nil
 end
+wielded_light = walking_light.wields_light -- backward compat
 
 minetest.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
@@ -546,14 +551,16 @@ minetest.register_node("walking_light:light", {
 	},
 })
 
-function update_walking_light_node()
+function walking_light.update_node()
 	if walking_light_debug then
 		walking_light_node = "walking_light:light_debug"
 	else
 		walking_light_node = "walking_light:light"
 	end
 end
-update_walking_light_node()
+update_walking_light_node = walking_light.update_node -- backward compat
+
+walking_light.update_node()
 
 walking_light.register_tool('pick')
 
@@ -686,7 +693,7 @@ minetest.register_chatcommand("walking_light_debug", {
 		end
 
 		walking_light_debug = not walking_light_debug
-        update_walking_light_node()
+        walking_light.update_node()
  
 		return true, "Done."
 	end,
