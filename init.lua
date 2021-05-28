@@ -22,8 +22,8 @@ local light_items = {
 }
 
 function walking_light.addLightItem(item)
-	for I in pairs(light_items) do
-		if item == light_items[I] then
+	for _, li in ipairs(light_items) do
+		if item == li then
 			minetest.log("warning", "[walking_light] \"" .. item .. "\" is already light item.")
 			return
 		end
@@ -446,8 +446,8 @@ end
 
 -- return true if item is a light item
 function is_light_item(item)
-	for I in pairs(light_items) do
-		if item == light_items[I] then
+	for _, li in ipairs(light_items) do
+		if item == li then
 			return true
 		end
 	end
