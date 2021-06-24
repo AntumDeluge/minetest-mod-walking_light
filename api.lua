@@ -24,7 +24,7 @@ local light_armor = {
 	"walking_light:helmet_gold",
 }
 
-function walking_light.add_light_item(item)
+function walking_light.register_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
 			minetest.log("warning", "[walking_light] \"" .. item .. "\" is already light item.")
@@ -34,7 +34,7 @@ function walking_light.add_light_item(item)
 
 	table.insert(light_items, item)
 end
-walking_light.addLightItem = walking_light.add_light_item -- backward compat
+walking_light.addLightItem = walking_light.register_item -- backward compat
 
 function walking_light.register_armor(iname, litem)
 	if litem == nil then litem = true end
@@ -46,7 +46,7 @@ function walking_light.register_armor(iname, litem)
 	end
 
 	table.insert(light_armor, iname)
-	if litem then walking_light.add_light_item(iname) end
+	if litem then walking_light.register_item(iname) end
 end
 
 function walking_light.get_light_items()
@@ -72,7 +72,7 @@ function walking_light.register_tool(tool)
 		}
 	})
 
-	walking_light.add_light_item(item)
+	walking_light.register_item(item)
 end
 
 -- from http://lua-users.org/wiki/IteratorsTutorial
