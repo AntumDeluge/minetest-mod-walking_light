@@ -18,7 +18,12 @@ walking_light = {}
 -- list of items that use walking light
 local light_items = {
 	"default:torch", "walking_light:pick_mese",
-	"walking_light:helmet_diamond", "walking_light:megatorch",
+	"walking_light:megatorch",
+	"walking_light:helmet_gold",
+}
+
+local light_armor = {
+	"walking_light:helmet_diamond",
 	"walking_light:helmet_gold",
 }
 
@@ -33,6 +38,19 @@ function walking_light.add_light_item(item)
 	table.insert(light_items, item)
 end
 walking_light.addLightItem = walking_light.add_light_item -- backward compat
+
+function walking_light.register_armor(iname, litem)
+	if litem == nil then litem = true end
+
+	for _, a in ipairs(light_armor) do
+		if iname == a then
+			core.log("warning", "[walking_light] \"" .. iname .. "\" is already light armor.")
+		end
+	end
+
+	table.insert(light_armor, iname)
+	if litem then walking_light.add_light_item(iname) end
+end
 
 function walking_light.get_light_items()
 	return light_items
@@ -443,21 +461,17 @@ function walking_light.get_wielded_light_item(player)
 	end
 
 	-- check equipped armor - requires unified_inventory maybe
-	local player_name = player:get_player_name()
-	if player_name then
-		local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
-		if armor_inv then
-			local item_name = "walking_light:helmet_diamond"
-			local stack = ItemStack(item_name)
-			if armor_inv:contains_item("armor", stack) then
-				return item_name
-			end
-
-			-- Gold helmet
-			local item_name = "walking_light:helmet_gold"
-			local stack = ItemStack(item_name)
-			if armor_inv:contains_item("armor", stack) then
-				return item_name
+	if core.get_modpath("3d_armor") then
+		local player_name = player:get_player_name()
+		if player_name then
+			local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
+			if armor_inv then
+				-- FIXME: should be a more efficient method
+				for _, item_name in ipairs(light_armor) do
+					if armor_inv:contains_item("armor", ItemStack(item_name)) then
+						return item_name
+					end
+				end
 			end
 		end
 	end
