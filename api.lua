@@ -1,3 +1,4 @@
+
 -- list of all players seen by minetest.register_on_joinplayer
 local players = {}
 -- all player positions last time light was updated: {player_name : {x, y, z}}
@@ -76,13 +77,14 @@ end
 -- from http://lua-users.org/wiki/IteratorsTutorial
 -- useful for removing things from a table because removing from the middle makes it skip elements otherwise
 local function ripairs(t)
-  local function ripairs_it(t,i)
-    i=i-1
-    local v=t[i]
-    if v==nil then return v end
-    return i,v
-  end
-  return ripairs_it, t, #t+1
+	local function ripairs_it(t, i)
+		i = i-1
+		local v = t[i]
+		if v == nil then return v end
+		return i, v
+	end
+
+	return ripairs_it, t, #t+1
 end
 
 -- formats a vector with shorter output than dump
@@ -116,7 +118,7 @@ local function dumppostable(t)
 	end
 
 	ret = #t .. "{\n"
-	for i,pos in ipairs(t) do
+	for i, pos in ipairs(t) do
 		ret = ret .. "    " .. dumppos(pos) .. "\n"
 	end
 	ret = ret .. "}"
@@ -152,7 +154,7 @@ local function mt_add_node(pos, sometable)
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
-	minetest.add_node(pos,sometable)
+	minetest.add_node(pos, sometable)
 end
 
 local function round(num)
@@ -182,9 +184,9 @@ local function player_moved(player)
 	return false
 end
 
--- same as table.remove(t,remove_pos), but uses poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
+-- same as table.remove(t, remove_pos), but uses poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
 local function table_remove_pos(t, remove_pos)
-	for i,pos in ipairs(t) do
+	for i, pos in ipairs(t) do
 		if poseq(pos, remove_pos) then
 			table.remove(t, i)
 			break
@@ -194,15 +196,16 @@ end
 
 -- same as t[remove_pos], but uses poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
 local function table_contains_pos(t, remove_pos)
-	for i,pos in ipairs(t) do
+	for i, pos in ipairs(t) do
 		if poseq(pos, remove_pos) then
 			return true
 		end
 	end
+
 	return false
 end
 
--- same as table.insert(t,pos) but makes sure it is not duplicated
+-- same as table.insert(t, pos) but makes sure it is not duplicated
 local function table_insert_pos(t, pos)
 	if not table_contains_pos( pos ) then
 		table.insert(t, pos)
@@ -225,7 +228,7 @@ local function remove_light(player, pos)
 	end
 	local node = mt_get_node_or_nil(pos)
 	if is_light(node) then
-		mt_add_node(pos,{type="node",name="air"})
+		mt_add_node(pos, {type="node", name="air"})
 		if player_name then
 			table_remove_pos(light_positions[player_name], pos)
 		end
@@ -243,7 +246,7 @@ end
 local function remove_light_player(player)
 	local player_name = player:get_player_name()
 
-    for i,old_pos in ripairs(light_positions[player_name]) do
+	for i, old_pos in ripairs(light_positions[player_name]) do
 		if old_pos then
 			remove_light(player, old_pos)
 		end
@@ -360,7 +363,7 @@ local function add_light(player, pos)
 		return false
 	elseif node.name == "air" then
 		-- when the node that is already there is air, add light
-		mt_add_node(pos,{type="node",name=walking_light_node})
+		mt_add_node(pos, {type="node", name=walking_light_node})
 		if not table_contains_pos(light_positions[player_name], pos) then
 			table_insert_pos(light_positions[player_name], pos)
 		end
@@ -386,7 +389,7 @@ local function update_light_player(player)
 	end
 
 	-- figure out if they wield light; this will be nil if not
-	local wielded_item = get_wielded_light_item(player)
+	local wielded_item = walking_light.get_wielded_light_item(player)
 
 	local player_name = player:get_player_name()
 	local pos = player:get_pos()
@@ -414,24 +417,24 @@ local function update_light_player(player)
 
 	if wielded_item and wantlightpos then
 		-- add light that isn't already there
-		for i,newpos in ipairs(wantlightpos) do
+		for i, newpos in ipairs(wantlightpos) do
 			add_light(player, newpos)
 		end
 	end
 
 	-- go through all light owned by the player to remove all but what should be kept
-    for i,oldlightpos in ripairs(light_positions[player_name]) do
-        if not wantlightpos or oldlightpos and oldlightpos.x and not table_contains_pos(wantlightpos, oldlightpos) then
+	for i, oldlightpos in ripairs(light_positions[player_name]) do
+		if not wantlightpos or oldlightpos and oldlightpos.x and not table_contains_pos(wantlightpos, oldlightpos) then
 			remove_light(player, oldlightpos)
-        end
-    end
+		end
+	end
 
 	player_positions[player_name] = vector.round(pos)
 end
 
 local function update_light_all()
 	-- go through all players to check
-	for i,player_name in ipairs(players) do
+	for i, player_name in ipairs(players) do
 		local player = minetest.get_player_by_name(player_name)
 		update_light_player(player)
 	end
@@ -444,9 +447,9 @@ function walking_light.is_light_item(item)
 			return true
 		end
 	end
+
 	return false
 end
-is_light_item = walking_light.is_light_item -- backward compat
 
 -- returns a string, the name of the item found that is a light item
 function walking_light.get_wielded_light_item(player)
@@ -473,18 +476,16 @@ function walking_light.get_wielded_light_item(player)
 
 	return nil
 end
-get_wielded_light_item = walking_light.get_wielded_light_item -- backward compat
 
 -- return true if player is wielding a light item
 function walking_light.wields_light(player)
 	return walking_light.get_wielded_light_item(player) ~= nil
 end
-wielded_light = walking_light.wields_light -- backward compat
 
 minetest.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
 	table.insert(players, player_name)
-	last_wielded[player_name] = get_wielded_light_item(player)
+	last_wielded[player_name] = walking_light.get_wielded_light_item(player)
 	local pos = player:get_pos()
 	player_positions[player_name] = nil
 	light_positions[player_name] = {}
@@ -493,18 +494,18 @@ end)
 
 minetest.register_on_leaveplayer(function(player)
 	local player_name = player:get_player_name()
-	for i,v in ipairs(players) do
+	for i, v in ipairs(players) do
 		if v == player_name then
 			table.remove(players, i)
 		end
 	end
 	last_wielded[player_name] = false
 	remove_light_player(player)
-	player_positions[player_name]=nil
+	player_positions[player_name] = nil
 end)
 
 minetest.register_globalstep(function(dtime)
-	for i,player_name in ipairs(players) do
+	for i, player_name in ipairs(players) do
 		local player = minetest.get_player_by_name(player_name)
 		if player ~= nil then
 			update_light_player(player)
@@ -551,59 +552,57 @@ function walking_light.update_node()
 		walking_light_node = "walking_light:light"
 	end
 end
-update_walking_light_node = walking_light.update_node -- backward compat
 
 walking_light.update_node()
 
 minetest.register_node("walking_light:megatorch", {
-    description = "Megatorch",
-    drawtype = "torchlike",
-    tiles = {
-        {
-            name = "default_torch_on_floor_animated.png",
-            animation = {
-                type = "vertical_frames",
-                aspect_w = 16,
-                aspect_h = 16,
-                length = 3.0
-            },
-        },
-        {
-            name="default_torch_on_ceiling_animated.png",
-            animation = {
-                type = "vertical_frames",
-                aspect_w = 16,
-                aspect_h = 16,
-                length = 3.0
-            },
-        },
-        {
-            name="default_torch_animated.png",
-            animation = {
-                type = "vertical_frames",
-                aspect_w = 16,
-                aspect_h = 16,
-                length = 3.0
-            },
-        },
-    },
-    inventory_image = "default_torch_on_floor.png",
-    wield_image = "default_torch_on_floor.png",
-    paramtype = "light",
-    paramtype2 = "wallmounted",
-    sunlight_propagates = true,
-    is_ground_content = false,
-    walkable = false,
-    light_source = 13,
-    selection_box = {
-        type = "wallmounted",
-        wall_top = {-0.1, 0.5-0.6, -0.1, 0.1, 0.5, 0.1},
-        wall_bottom = {-0.1, -0.5, -0.1, 0.1, -0.5+0.6, 0.1},
-        wall_side = {-0.5, -0.3, -0.1, -0.5+0.3, 0.3, 0.1},
-    },
-    groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1},
-    legacy_wallmounted = true,
-    --sounds = default.node_sound_defaults(),
+	description = "Megatorch",
+	drawtype = "torchlike",
+	tiles = {
+		{
+			name = "default_torch_on_floor_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 3.0,
+			},
+		},
+		{
+			name = "default_torch_on_ceiling_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 3.0,
+			},
+		},
+		{
+			name = "default_torch_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 3.0,
+			},
+		},
+	},
+	inventory_image = "default_torch_on_floor.png",
+	wield_image = "default_torch_on_floor.png",
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	walkable = false,
+	light_source = 13,
+	selection_box = {
+		type = "wallmounted",
+		wall_top = {-0.1, 0.5-0.6, -0.1, 0.1, 0.5, 0.1},
+		wall_bottom = {-0.1, -0.5, -0.1, 0.1, -0.5+0.6, 0.1},
+		wall_side = {-0.5, -0.3, -0.1, -0.5+0.3, 0.3, 0.1},
+	},
+	groups = {choppy=2, dig_immediate=3, flammable=1, attached_node=1},
+	legacy_wallmounted = true,
 })
 
 minetest.register_craft({
@@ -626,11 +625,11 @@ minetest.register_chatcommand("walking_light_clear_light", {
 		local pos = vector.round(minetest.get_player_by_name(name):get_pos())
 		local size = tonumber(param) or 40
 
-		for i,v in ipairs({"walking_light:light", "walking_light:light_debug"}) do
-			point = minetest.find_node_near(pos, size/2, v)
+		for i, v in ipairs({"walking_light:light", "walking_light:light_debug"}) do
+			local point = minetest.find_node_near(pos, size/2, v)
 			while point do
 				remove_light(nil, point)
-				oldpoint = point
+				local oldpoint = point
 				point = minetest.find_node_near(pos, size/2, v)
 				if poseq(oldpoint, point) then
 					return false, "Failed... infinite loop detected"
@@ -653,7 +652,7 @@ minetest.register_chatcommand("walking_light_add_light", {
 		pos = vector.new(pos.x, pos.y + 1, pos.z)
 
 		if pos then
-			mt_add_node(pos,{type="node",name=walking_light_node})
+			mt_add_node(pos, {type="node", name=walking_light_node})
 		end
 
 		return true, "Done."
@@ -668,10 +667,8 @@ minetest.register_chatcommand("walking_light_debug", {
 		end
 
 		walking_light_debug = not walking_light_debug
-		update_walking_light_node()
+		walking_light.update_node()
 
 		return true, "Done."
 	end,
 })
-
--- vim: ts=4 sw=4 softtabstop=4 smarttab noexpandtab
