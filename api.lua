@@ -14,15 +14,11 @@ local walking_light_node = nil
 
 -- list of items that use walking light
 local light_items = {
-	"default:torch", "walking_light:pick_mese",
+	"default:torch",
 	"walking_light:megatorch",
-	"walking_light:helmet_gold",
 }
 
-local light_armor = {
-	"walking_light:helmet_diamond",
-	"walking_light:helmet_gold",
-}
+local light_armor = {}
 
 function walking_light.register_item(item)
 	for _, li in ipairs(light_items) do
@@ -559,29 +555,6 @@ update_walking_light_node = walking_light.update_node -- backward compat
 
 walking_light.update_node()
 
-minetest.register_tool("walking_light:pick_mese", {
-	description = "Mese Pickaxe with light",
-	inventory_image = "walking_light_mesepick.png",
-	wield_image = "default_tool_mesepick.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=3,
-		groupcaps={
-			cracky={times={[1]=2.0, [2]=1.0, [3]=0.5}, uses=0, maxlevel=3},
-			crumbly={times={[1]=2.0, [2]=1.0, [3]=0.5}, uses=0, maxlevel=3},
-			snappy={times={[1]=2.0, [2]=1.0, [3]=0.5}, uses=0, maxlevel=3}
-		}
-	},
-})
-
-minetest.register_tool("walking_light:helmet_diamond", {
-	description = "Diamond Helmet with light",
-	inventory_image = "walking_light_inv_helmet_diamond.png",
-	wield_image = "3d_armor_inv_helmet_diamond.png",
-	groups = {armor_head=15, armor_heal=12, armor_use=100},
-	wear = 0,
-})
-
 minetest.register_node("walking_light:megatorch", {
     description = "Megatorch",
     drawtype = "torchlike",
@@ -631,14 +604,6 @@ minetest.register_node("walking_light:megatorch", {
     groups = {choppy=2,dig_immediate=3,flammable=1,attached_node=1},
     legacy_wallmounted = true,
     --sounds = default.node_sound_defaults(),
-})
-
-minetest.register_craft({
-	output = 'walking_light:helmet_diamond',
-	recipe = {
-		{'default:torch'},
-		{'3d_armor:helmet_diamond'},
-	}
 })
 
 minetest.register_craft({
