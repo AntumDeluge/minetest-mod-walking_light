@@ -55,6 +55,8 @@ end
 walking_light.getLightItems = walking_light.get_light_items -- backward compat
 
 function walking_light.register_tool(tool)
+	walking_light.log("warning", "\"walking_light.register_tool\" method is deprecated")
+
 	local item, default, definition
 	item = 'walking_light:' .. tool .. '_mese'
 	default = 'default:' .. tool .. '_mese'
