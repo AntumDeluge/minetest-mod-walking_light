@@ -83,7 +83,7 @@ if walking_light.enable_megatorch and core.get_modpath("default") then
 		legacy_wallmounted = true,
 	})
 
-	walking_light.register_item("walking_light:megatorch")
+	walking_light.register_item("walking_light:megatorch", 10)
 
 	core.register_craft({
 		output = "walking_light:megatorch",

@@ -34,16 +34,24 @@ local light_armor = {}
 
 --- Registers an item to emit light when wielded.
 --
---  @tparam string item Item technical name.
-function walking_light.register_item(item)
-	for _, li in ipairs(light_items) do
-		if item == li then
-			walking_light.log("warning", "\"" .. item .. "\" is already light item.")
+--  @tparam string iname Item technical name.
+--  @tparam[opt] int radius Distance light will reach (max: 10).
+function walking_light.register_item(iname, radius)
+	if radius and radius > 10 then
+		walking_light.log("warning", "light radius too high, setting to 10")
+		radius = 10
+	end
+
+	local def = {radius=radius}
+
+	for li in pairs(light_items) do
+		if iname == li then
+			walking_light.log("warning", "\"" .. iname .. "\" is already light item.")
 			return
 		end
 	end
 
-	table.insert(light_items, item)
+	light_items[iname] = def
 end
 
 --- DEPRECATED
@@ -58,24 +66,33 @@ end
 
 --- Registers an item to emit light when equipped in armor inventory.
 --
+--  Note: light radius will be overridden by light-emitting item being wielded.
+--
 --  @tparam string iname Item technical name.
---  @tparam bool litem Whether or not this item should also be registered with `walking_light.register_item`.
-function walking_light.register_armor(iname, litem)
+--  @tparam[opt] int radius Distance light will reach (max: 10).
+--  @tparam[opt] bool litem Whether or not this item should also be registered with `walking_light.register_item`.
+function walking_light.register_armor(iname, radius, litem)
+	if radius and radius > 10 then
+		walking_light.log("warning", "light radius too high, setting to 10")
+		radius = 10
+	end
+
+	local def = {radius=radius}
 	if litem == nil then litem = true end
 
-	for _, a in ipairs(light_armor) do
-		if iname == a then
+	for la in pairs(light_armor) do
+		if iname == la then
 			walking_light.log("warning", "\"" .. iname .. "\" is already light armor.")
 		end
 	end
 
-	table.insert(light_armor, iname)
-	if litem then walking_light.register_item(iname) end
+	light_armor[iname] = def
+	if litem then walking_light.register_item(iname, radius) end
 end
 
 --- Retrieves list of items registered as emitting light when wielded.
 --
---  @treturn table
+--  @treturn table Table indexed by key.
 function walking_light.get_light_items()
 	return light_items
 end
@@ -401,7 +418,12 @@ local function pick_light_position_regular(player, pos)
 end
 
 -- new function, returns table
-local function pick_light_position_radius(player, pos, ret, radius)
+local function pick_light_position_radius(player, pos, radius)
+	local ret = {}
+	if can_add_light(pos) then
+		table.insert(ret, pos)
+	end
+
 	local pos2
 	local step = 4
 	local unstep = 1/step
@@ -421,20 +443,9 @@ local function pick_light_position_radius(player, pos, ret, radius)
 	return ret
 end
 
-local function pick_light_position_mega(player, pos)
-	local ret = {}
-
-	if can_add_light(pos) then
-		table.insert(ret, pos)
-	end
-	pick_light_position_radius(player, pos, ret, 10)
-
-	return ret
-end
-
-local function pick_light_position(player, pos, light_item)
-	if light_item == "walking_light:megatorch" then
-		return pick_light_position_mega(player, pos)
+local function pick_light_position(player, pos, radius)
+	if radius then
+		return pick_light_position_radius(player, pos, radius)
 	end
 
 	return pick_light_position_regular(player, pos)
@@ -482,8 +493,8 @@ local function get_wielded_light_item(player)
 			if armor_inv then
 				for k, stack in pairs(armor_inv:get_list("armor")) do
 					local item_name = stack:get_name()
-					if walking_light.is_light_item(item_name) then
-						return item_name
+					if walking_light.is_light_armor(item_name) then
+						return item_name, true
 					end
 				end
 			end
@@ -501,7 +512,7 @@ local function update_light_player(player)
 	end
 
 	-- figure out if they wield light; this will be nil if not
-	local wielded_item = get_wielded_light_item(player)
+	local wielded_item, is_armor = get_wielded_light_item(player)
 
 	local player_name = player:get_player_name()
 	local pos = player:get_pos()
@@ -523,8 +534,15 @@ local function update_light_player(player)
 	local wantlightpos = nil
 	local wantpos = vector.new(rounded_pos.x, rounded_pos.y + 1, rounded_pos.z)
 	if wielded_item then
+		local radius
+		if is_armor then
+			radius = light_armor[wielded_item].radius
+		else
+			radius = light_items[wielded_item].radius
+		end
+
 		-- decide where light should be
-		wantlightpos = pick_light_position(player, wantpos, wielded_item)
+		wantlightpos = pick_light_position(player, wantpos, radius)
 	end
 
 	if wielded_item and wantlightpos then
@@ -554,11 +572,25 @@ end
 
 --- Checks if an item is registered as emitting light when wielded.
 --
---  @tparam string item Item technical name.
+--  @tparam string iname Item technical name.
 --  @treturn bool `true` if item is registered.
-function walking_light.is_light_item(item)
-	for _, li in ipairs(light_items) do
-		if item == li then
+function walking_light.is_light_item(iname)
+	for li in pairs(light_items) do
+		if iname == li then
+			return true
+		end
+	end
+
+	return false
+end
+
+--- Checks if an item is registered as emitting light when equipped in armor inventory.
+--
+--  @tparam string iname Item technical name.
+--  @treturn bool `true` if item is registered.
+function walking_light.is_light_armor(iname)
+	for la in pairs(light_armor) do
+		if iname == la then
 			return true
 		end
 	end
