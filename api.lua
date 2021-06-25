@@ -1,4 +1,9 @@
 
+--- walking_light Methods
+--
+--  @topic methods
+
+
 -- list of all players seen by core.register_on_joinplayer
 local players = {}
 -- all player positions last time light was updated: {player_name : {x, y, z}}
@@ -14,6 +19,9 @@ local walking_light_debug = false
 -- name of light node, changed by toggling debug mode
 walking_light_node = nil
 
+--- Sets debugging mode.
+--
+--  @tparam bool enabled Determines if debugging is enabled.
 function walking_light.set_debug(enabled)
 	walking_light_debug = enabled
 end
@@ -24,6 +32,9 @@ local light_items = {}
 -- list of items that use walking light when equipped as armor
 local light_armor = {}
 
+--- Registers an item to emit light when wielded.
+--
+--  @tparam string item Item technical name.
 function walking_light.register_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
@@ -35,7 +46,9 @@ function walking_light.register_item(item)
 	table.insert(light_items, item)
 end
 
--- backward compat
+--- DEPRECATED
+--
+--  Use `walking_light.register_item`
 function walking_light.addLightItem(item)
 	walking_light.log("warning",
 		"\"walking_light.addLightItem\" is deprecated, use \"walking_light.register_item\"")
@@ -43,6 +56,10 @@ function walking_light.addLightItem(item)
 	return walking_light.register_item(item)
 end
 
+--- Registers an item to emit light when equipped in armor inventory.
+--
+--  @tparam string iname Item technical name.
+--  @tparam bool litem Whether or not this item should also be registered with `walking_light.register_item`.
 function walking_light.register_armor(iname, litem)
 	if litem == nil then litem = true end
 
@@ -56,10 +73,16 @@ function walking_light.register_armor(iname, litem)
 	if litem then walking_light.register_item(iname) end
 end
 
+--- Retrieves list of items registered as emitting light when wielded.
+--
+--  @treturn table
 function walking_light.get_light_items()
 	return light_items
 end
 
+--- DEPRECATED
+--
+--  Use `walking_light.get_light_items`
 function walking_light.getLightItems()
 	walking_light.log("warning",
 		"\"walking_light.getLightItems\" is deprecated, use \"walking_light.get_light_items\"")
@@ -67,6 +90,7 @@ function walking_light.getLightItems()
 	return walking_light.get_light_items()
 end
 
+--- DEPRECATED
 function walking_light.register_tool(tool)
 	walking_light.log("warning", "\"walking_light.register_tool\" method is deprecated")
 
@@ -160,6 +184,10 @@ local function mt_get_node_or_nil(pos)
 
 end
 
+--- Adds a node to the world.
+--
+--  @tparam table pos Position.
+--  @tparam table sometable
 function walking_light.mt_add_node(pos, sometable)
 	if pos == nil then
 		walking_light.log("error", "walking_light.mt_add_node(), pos is nil")
@@ -175,6 +203,9 @@ function walking_light.mt_add_node(pos, sometable)
 	core.add_node(pos, sometable)
 end
 
+--- DEPRECATED
+--
+--  Use `walking_light.mt_add_node`
 function mt_add_node(pos, sometable)
 	walking_light.log("warning", "\"mt_add_node\" is deprecated, use \"walking_light.mt_add_node\"")
 
@@ -185,6 +216,11 @@ local function round(num)
 	return math.floor(num + 0.5)
 end
 
+---
+--
+--  @tparam table pos1
+--  @tparam table pos2
+--  @treturn bool
 function walking_light.poseq(pos1, pos2)
 	if pos1 == nil and pos2 == nil then
 		return true
@@ -196,6 +232,9 @@ function walking_light.poseq(pos1, pos2)
 	return pos1.x == pos2.x and pos1.y == pos2.y and pos1.z == pos2.z
 end
 
+--- DEPRECATED
+--
+--  Use `walking_light.poseq`
 function poseq(pos1, pos2)
 	walking_light.log("warning", "\"poseq\" is deprecated, use \"walking_light.poseq\"")
 
@@ -251,8 +290,10 @@ local function is_light(node)
 	return false
 end
 
--- removes light at the given position
--- player is optional
+--- Removes light at the given position.
+--
+--  @tparam[opt] ObjectRef player
+--  @tparam table pos Posistion where light will be removed.
 function walking_light.remove_light(player, pos)
 	local player_name
 	if player then
@@ -276,6 +317,9 @@ function walking_light.remove_light(player, pos)
 	end
 end
 
+--- DEPRECATED
+--
+--  Use `walking_light.remove_light`
 function remove_light(player, pos)
 	walking_light.log("warning", "\"remove_light\" is deprecated, use \"walking_light.remove_light\"")
 
@@ -482,7 +526,10 @@ local function update_light_all()
 	end
 end
 
--- return true if item is a light item
+--- Checks if an item is registered as emitting light when wielded.
+--
+--  @tparam string item Item technical name.
+--  @treturn bool `true` if item is registered.
 function walking_light.is_light_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
@@ -519,7 +566,10 @@ local function get_wielded_light_item(player)
 	return nil
 end
 
--- return true if player is wielding a light item
+--- Checks if player is wielding a light-emitting item.
+--
+--  @tparam ObjectRef player Player to be checked.
+--  @treturn bool `true` if player is wielding registered item.
 function walking_light.wields_light(player)
 	return get_wielded_light_item(player) ~= nil
 end
@@ -557,6 +607,9 @@ core.register_globalstep(function(dtime)
 	end
 end)
 
+--- Updates light node texture.
+--
+--  If debugging, node will display a marker, otherwise will be transparent.
 function walking_light.update_node()
 	if walking_light_debug then
 		walking_light_node = "walking_light:light_debug"

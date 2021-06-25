@@ -1,7 +1,16 @@
 
+--- walking_light Chat Commands
+--
+--  @topic commands
+
+
 local S = core.get_translator(walking_light.modname)
 
 
+--- Removes light added with walking_light from nearby nodes.
+--
+--  @chatcmd walking_light_clear_light
+--  @param size Diameter of which light should be removed.
 core.register_chatcommand("walking_light_clear_light", {
 	params = "<size>",
 	description = S("Remove light nodes from the area."),
@@ -28,7 +37,12 @@ core.register_chatcommand("walking_light_clear_light", {
 	end,
 })
 
--- FIXME: only adds one node, does not make use of "size" parameter
+--- Adds light to nearby nodes.
+--
+--  FIXME: only adds one node, does not make use of "size" parameter
+--
+--  @chatcmd walking_light_add_light
+--  @param size Diameter of which light should be added.
 core.register_chatcommand("walking_light_add_light", {
 	params = "<size>",
 	description = S("Add walking_light:light to a position, without a player owning it."),
@@ -48,6 +62,11 @@ core.register_chatcommand("walking_light_add_light", {
 	end,
 })
 
+--- Toggles debugging mode.
+--
+--  If enabled, nodes with added light will be visibly marked.
+--
+--  @chatcmd walking_light_debug
 core.register_chatcommand("walking_light_debug", {
 	description = S("Change to debug mode, so light blocks are visible."),
 	func = function(name, param)
