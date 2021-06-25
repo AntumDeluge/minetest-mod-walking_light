@@ -13,4 +13,4 @@ rm -rf "${docs}/api.html" "${docs}/topics"
 ldoc -c "${config}" -d "${docs}" -o "api" "${root}"
 
 # add some adjustments
-sed -i -e 's/src="screenshot\.png"/src="..\/..\/screenshot.png"/g' "${docs}/topics/readme.md.html"
+sed -i -e 's|src="screenshot\.png"|src="https://raw.githubusercontent.com/AntumMT/mod-walking_light/master/screenshot.png" width="600"|g' "${docs}/topics/readme.md.html"
