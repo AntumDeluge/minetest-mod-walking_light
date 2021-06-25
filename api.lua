@@ -166,7 +166,7 @@ local function round(num)
 	return math.floor(num + 0.5)
 end
 
-local function poseq(pos1, pos2)
+function poseq(pos1, pos2)
 	if pos1 == nil and pos2 == nil then
 		return true
 	end
