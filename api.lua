@@ -160,14 +160,14 @@ local function mt_get_node_or_nil(pos)
 
 end
 
-function mt_add_node(pos, sometable)
+function walking_light.mt_add_node(pos, sometable)
 	if pos == nil then
-		walking_light.log("error", "mt_add_node(), pos is nil")
+		walking_light.log("error", "walking_light.mt_add_node(), pos is nil")
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
 	if sometable == nil then
-		walking_light.log("error", "mt_add_node(), sometable is nil")
+		walking_light.log("error", "walking_light.mt_add_node(), sometable is nil")
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
@@ -175,11 +175,17 @@ function mt_add_node(pos, sometable)
 	core.add_node(pos, sometable)
 end
 
+function mt_add_node(pos, sometable)
+	walking_light.log("warning", "\"mt_add_node\" is deprecated, use \"walking_light.mt_add_node\"")
+
+	return walking_light.mt_add_node(pos, sometable)
+end
+
 local function round(num)
 	return math.floor(num + 0.5)
 end
 
-function poseq(pos1, pos2)
+function walking_light.poseq(pos1, pos2)
 	if pos1 == nil and pos2 == nil then
 		return true
 	end
@@ -190,13 +196,19 @@ function poseq(pos1, pos2)
 	return pos1.x == pos2.x and pos1.y == pos2.y and pos1.z == pos2.z
 end
 
+function poseq(pos1, pos2)
+	walking_light.log("warning", "\"poseq\" is deprecated, use \"walking_light.poseq\"")
+
+	return walking_light.poseq(pos1, pos2)
+end
+
 -- return true if the player moved since last player_positions update
 local function player_moved(player)
 	local player_name = player:get_player_name()
 	local pos = player:get_pos()
 	local rounded_pos = vector.round(pos)
 	local oldpos = player_positions[player_name]
-	if oldpos == nil or not poseq(rounded_pos, oldpos) then
+	if oldpos == nil or not walking_light.poseq(rounded_pos, oldpos) then
 		-- if oldpos is nil, we assume they just logged in, so consider them moved
 		return true
 	end
@@ -204,20 +216,20 @@ local function player_moved(player)
 	return false
 end
 
--- same as table.remove(t, remove_pos), but uses poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
+-- same as table.remove(t, remove_pos), but uses walking_light.poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
 local function table_remove_pos(t, remove_pos)
 	for i, pos in ipairs(t) do
-		if poseq(pos, remove_pos) then
+		if walking_light.poseq(pos, remove_pos) then
 			table.remove(t, i)
 			break
 		end
 	end
 end
 
--- same as t[remove_pos], but uses poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
+-- same as t[remove_pos], but uses walking_light.poseq instead of comparing references (does lua have comparator support, so this isn't needed?)
 local function table_contains_pos(t, remove_pos)
 	for i, pos in ipairs(t) do
-		if poseq(pos, remove_pos) then
+		if walking_light.poseq(pos, remove_pos) then
 			return true
 		end
 	end
@@ -241,25 +253,33 @@ end
 
 -- removes light at the given position
 -- player is optional
-function remove_light(player, pos)
+function walking_light.remove_light(player, pos)
 	local player_name
 	if player then
 		player_name = player:get_player_name()
 	end
 	local node = mt_get_node_or_nil(pos)
 	if is_light(node) then
-		mt_add_node(pos, {type="node", name="air"})
+		walking_light.mt_add_node(pos, {type="node", name="air"})
 		if player_name then
 			table_remove_pos(light_positions[player_name], pos)
 		end
 	else
 		if node ~= nil then
-			walking_light.log("warning", "remove_light(), pos = " .. dumppos(pos) .. ", tried to remove light but node was " .. node.name)
+			walking_light.log("warning", "walking_light.remove_light(), pos = "
+				.. dumppos(pos) .. ", tried to remove light but node was " .. node.name)
 			table_remove_pos(light_positions[player_name], pos)
 		else
-			walking_light.log("warning", "remove_light(), pos = " .. dumppos(pos) .. ", tried to remove light but node was nil")
+			walking_light.log("warning", "walking_light.remove_light(), pos = "
+				.. dumppos(pos) .. ", tried to remove light but node was nil")
 		end
 	end
+end
+
+function remove_light(player, pos)
+	walking_light.log("warning", "\"remove_light\" is deprecated, use \"walking_light.remove_light\"")
+
+	return walking_light.remove_light(player, pos)
 end
 
 -- removes all light owned by a player
@@ -268,7 +288,7 @@ local function remove_light_player(player)
 
 	for i, old_pos in ripairs(light_positions[player_name]) do
 		if old_pos then
-			remove_light(player, old_pos)
+			walking_light.remove_light(player, old_pos)
 		end
 	end
 end
@@ -385,7 +405,7 @@ local function add_light(player, pos)
 		return false
 	elseif node.name == "air" then
 		-- when the node that is already there is air, add light
-		mt_add_node(pos, {type="node", name=walking_light_node})
+		walking_light.mt_add_node(pos, {type="node", name=walking_light_node})
 		if not table_contains_pos(light_positions[player_name], pos) then
 			table_insert_pos(light_positions[player_name], pos)
 		end
@@ -447,7 +467,7 @@ local function update_light_player(player)
 	-- go through all light owned by the player to remove all but what should be kept
 	for i, oldlightpos in ripairs(light_positions[player_name]) do
 		if not wantlightpos or oldlightpos and oldlightpos.x and not table_contains_pos(wantlightpos, oldlightpos) then
-			remove_light(player, oldlightpos)
+			walking_light.remove_light(player, oldlightpos)
 		end
 	end
 

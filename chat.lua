@@ -16,10 +16,10 @@ core.register_chatcommand("walking_light_clear_light", {
 		for i, v in ipairs({"walking_light:light", "walking_light:light_debug"}) do
 			local point = core.find_node_near(pos, size/2, v)
 			while point do
-				remove_light(nil, point)
+				walking_light.remove_light(nil, point)
 				local oldpoint = point
 				point = core.find_node_near(pos, size/2, v)
-				if poseq(oldpoint, point) then
+				if walking_light.poseq(oldpoint, point) then
 					return false, S("Failed... infinite loop detected")
 				end
 			end
@@ -41,7 +41,7 @@ core.register_chatcommand("walking_light_add_light", {
 		pos = vector.new(pos.x, pos.y + 1, pos.z)
 
 		if pos then
-			mt_add_node(pos, {type="node", name=walking_light_node})
+			walking_light.mt_add_node(pos, {type="node", name=walking_light_node})
 		end
 
 		return true, S("Done.")
