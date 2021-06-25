@@ -1,5 +1,5 @@
 
--- list of all players seen by minetest.register_on_joinplayer
+-- list of all players seen by core.register_on_joinplayer
 local players = {}
 -- all player positions last time light was updated: {player_name : {x, y, z}}
 local player_positions = {}
@@ -29,7 +29,7 @@ local light_armor = {}
 function walking_light.register_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
-			minetest.log("warning", "[walking_light] \"" .. item .. "\" is already light item.")
+			core.log("warning", "[walking_light] \"" .. item .. "\" is already light item.")
 			return
 		end
 	end
@@ -60,18 +60,18 @@ function walking_light.register_tool(tool)
 	walking_light.log("warning", "\"walking_light.register_tool\" method is deprecated")
 
 	local item, default, definition
-	item = 'walking_light:' .. tool .. '_mese'
-	default = 'default:' .. tool .. '_mese'
+	item = "walking_light:" .. tool .. "_mese"
+	default = "default:" .. tool .. "_mese"
 
-	definition = table.copy(minetest.registered_items[default])
-	definition.description = definition.description .. ' with light'
-	definition.inventory_image = 'walking_light_mese' .. tool .. '.png'
+	definition = table.copy(core.registered_items[default])
+	definition.description = definition.description .. " with light"
+	definition.inventory_image = "walking_light_mese" .. tool .. ".png"
 
-	minetest.register_tool(item, definition)
-	minetest.register_craft({
+	core.register_tool(item, definition)
+	core.register_craft({
 		output = item,
 		recipe = {
-			{'default:torch'},
+			{"default:torch"},
 			{ default },
 		}
 	})
@@ -137,11 +137,11 @@ local function mt_get_node_or_nil(pos)
 		return nil
 	end
 
-	local node = minetest.get_node_or_nil(pos)
+	local node = core.get_node_or_nil(pos)
 	if not node then
 		-- Load the map at pos and try again
-		minetest.get_voxel_manip():read_from_map(pos, pos)
-		node = minetest.get_node(pos)
+		core.get_voxel_manip():read_from_map(pos, pos)
+		node = core.get_node(pos)
 	end
 	-- If node.name is "ignore" here, the map probably isn't generated at pos.
 	return node
@@ -159,7 +159,7 @@ function mt_add_node(pos, sometable)
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
-	minetest.add_node(pos, sometable)
+	core.add_node(pos, sometable)
 end
 
 local function round(num)
@@ -440,7 +440,7 @@ end
 local function update_light_all()
 	-- go through all players to check
 	for i, player_name in ipairs(players) do
-		local player = minetest.get_player_by_name(player_name)
+		local player = core.get_player_by_name(player_name)
 		update_light_player(player)
 	end
 end
@@ -467,7 +467,7 @@ function walking_light.get_wielded_light_item(player)
 	if core.get_modpath("3d_armor") then
 		local player_name = player:get_player_name()
 		if player_name then
-			local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
+			local armor_inv = core.get_inventory({type="detached", name=player_name.."_armor"})
 			if armor_inv then
 				-- FIXME: should be a more efficient method
 				for _, item_name in ipairs(light_armor) do
@@ -487,7 +487,7 @@ function walking_light.wields_light(player)
 	return walking_light.get_wielded_light_item(player) ~= nil
 end
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
 	table.insert(players, player_name)
 	last_wielded[player_name] = walking_light.get_wielded_light_item(player)
@@ -497,7 +497,7 @@ minetest.register_on_joinplayer(function(player)
 	update_light_player(player)
 end)
 
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
 	local player_name = player:get_player_name()
 	for i, v in ipairs(players) do
 		if v == player_name then
@@ -509,9 +509,9 @@ minetest.register_on_leaveplayer(function(player)
 	player_positions[player_name] = nil
 end)
 
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
 	for i, player_name in ipairs(players) do
-		local player = minetest.get_player_by_name(player_name)
+		local player = core.get_player_by_name(player_name)
 		if player ~= nil then
 			update_light_player(player)
 		else
@@ -520,10 +520,10 @@ minetest.register_globalstep(function(dtime)
 	end
 end)
 
-minetest.register_node("walking_light:light_debug", {
+core.register_node("walking_light:light_debug", {
 	drawtype = "glasslike",
 	tiles = {"walking_light_debug.png"},
-	inventory_image = minetest.inventorycube("walking_light.png"),
+	inventory_image = core.inventorycube("walking_light.png"),
 	paramtype = "light",
 	walkable = false,
 	is_ground_content = true,
@@ -535,10 +535,10 @@ minetest.register_node("walking_light:light_debug", {
 	},
 })
 
-minetest.register_node("walking_light:light", {
+core.register_node("walking_light:light", {
 	drawtype = "glasslike",
 	tiles = {"walking_light.png"},
-	inventory_image = minetest.inventorycube("walking_light.png"),
+	inventory_image = core.inventorycube("walking_light.png"),
 	paramtype = "light",
 	walkable = false,
 	is_ground_content = true,
@@ -560,7 +560,7 @@ end
 
 walking_light.update_node()
 
-minetest.register_node("walking_light:megatorch", {
+core.register_node("walking_light:megatorch", {
 	description = "Megatorch",
 	drawtype = "torchlike",
 	tiles = {
@@ -610,11 +610,11 @@ minetest.register_node("walking_light:megatorch", {
 	legacy_wallmounted = true,
 })
 
-minetest.register_craft({
-	output = 'walking_light:megatorch',
+core.register_craft({
+	output = "walking_light:megatorch",
 	recipe = {
-		{'default:torch', 'default:torch', 'default:torch'},
-		{'default:torch', 'default:torch', 'default:torch'},
-		{'default:torch', 'default:torch', 'default:torch'},
+		{"default:torch", "default:torch", "default:torch"},
+		{"default:torch", "default:torch", "default:torch"},
+		{"default:torch", "default:torch", "default:torch"},
 	}
 })
