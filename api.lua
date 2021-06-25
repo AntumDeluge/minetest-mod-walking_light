@@ -18,11 +18,10 @@ function walking_light.set_debug(enabled)
 	walking_light_debug = enabled
 end
 
--- list of items that use walking light
-local light_items = {
-	"walking_light:megatorch",
-}
+-- list of items that use walking light when wielded
+local light_items = {}
 
+-- list of items that use walking light when equipped as armor
 local light_armor = {}
 
 function walking_light.register_item(item)

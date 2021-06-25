@@ -10,6 +10,7 @@ v1.0
 - added global method for registering an armor item
 - segregated code into modules
 - removed walking_light:pick_mese & walking_light:helmet_diamond (mods should register their own light items)
+- megatorch can be disabled via setting
 
 petermaloney
 ------------

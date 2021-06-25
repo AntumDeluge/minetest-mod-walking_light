@@ -29,7 +29,7 @@ core.register_node("walking_light:light", {
 	},
 })
 
-if core.get_modpath("default") then
+if walking_light.enable_megatorch and core.get_modpath("default") then
 	core.register_node("walking_light:megatorch", {
 		description = "Megatorch",
 		drawtype = "torchlike",
@@ -79,6 +79,8 @@ if core.get_modpath("default") then
 		groups = {choppy=2, dig_immediate=3, flammable=1, attached_node=1},
 		legacy_wallmounted = true,
 	})
+
+	walking_light.register_item("walking_light:megatorch")
 
 	core.register_craft({
 		output = "walking_light:megatorch",

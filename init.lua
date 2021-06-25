@@ -19,6 +19,7 @@ end
 
 
 local scripts = {
+	"settings",
 	"api",
 	"chat",
 	"nodes",
