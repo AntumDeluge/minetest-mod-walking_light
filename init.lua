@@ -18,4 +18,11 @@ function walking_light.log(lvl, msg)
 end
 
 
-dofile(walking_light.modpath .. "/api.lua")
+local scripts = {
+	"api",
+	"chat",
+end
+
+for _, sc in ipairs(scripts) do
+	dofile(walking_light.modpath .. "/" .. sc .. ".lua")
+end

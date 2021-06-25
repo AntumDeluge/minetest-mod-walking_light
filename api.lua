@@ -10,8 +10,13 @@ local last_wielded = {}
 
 -- toggles debug mode
 local walking_light_debug = false
+
 -- name of light node, changed by toggling debug mode
 local walking_light_node = nil
+
+function walking_light.set_debug(enabled)
+	walking_light_debug = enabled
+end
 
 -- list of items that use walking light
 local light_items = {
@@ -143,7 +148,7 @@ local function mt_get_node_or_nil(pos)
 
 end
 
-local function mt_add_node(pos, sometable)
+function mt_add_node(pos, sometable)
 	if pos == nil then
 		print("ERROR: walking_light.mt_add_node(), pos is nil")
 		print(debug.traceback("Current Callstack:\n"))
@@ -221,7 +226,7 @@ end
 
 -- removes light at the given position
 -- player is optional
-local function remove_light(player, pos)
+function remove_light(player, pos)
 	local player_name
 	if player then
 		player_name = player:get_player_name()
@@ -612,63 +617,4 @@ minetest.register_craft({
 		{'default:torch', 'default:torch', 'default:torch'},
 		{'default:torch', 'default:torch', 'default:torch'},
 	}
-})
-
-minetest.register_chatcommand("walking_light_clear_light", {
-	params = "<size>",
-	description = "Remove light nodes from the area",
-	func = function(name, param)
-		if not minetest.check_player_privs(name, {server=true}) then
-			return false, "You need the server privilege to use mapclearlight"
-		end
-
-		local pos = vector.round(minetest.get_player_by_name(name):get_pos())
-		local size = tonumber(param) or 40
-
-		for i, v in ipairs({"walking_light:light", "walking_light:light_debug"}) do
-			local point = minetest.find_node_near(pos, size/2, v)
-			while point do
-				remove_light(nil, point)
-				local oldpoint = point
-				point = minetest.find_node_near(pos, size/2, v)
-				if poseq(oldpoint, point) then
-					return false, "Failed... infinite loop detected"
-				end
-			end
-		end
-		return true, "Done."
-	end,
-})
-
-minetest.register_chatcommand("walking_light_add_light", {
-	params = "<size>",
-	description = "Add walking_light:light to a position, without a player owning it",
-	func = function(name, param)
-		if not minetest.check_player_privs(name, {server=true}) then
-			return false, "You need the server privilege to use mapaddlight"
-		end
-
-		local pos = vector.round(minetest.get_player_by_name(name):get_pos())
-		pos = vector.new(pos.x, pos.y + 1, pos.z)
-
-		if pos then
-			mt_add_node(pos, {type="node", name=walking_light_node})
-		end
-
-		return true, "Done."
-	end,
-})
-
-minetest.register_chatcommand("walking_light_debug", {
-	description = "Change to debug mode, so light blocks are visible.",
-	func = function(name, param)
-		if not minetest.check_player_privs(name, {server=true}) then
-			return false, "You need the server privilege to use walking_light_debug"
-		end
-
-		walking_light_debug = not walking_light_debug
-		walking_light.update_node()
-
-		return true, "Done."
-	end,
 })
