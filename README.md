@@ -16,7 +16,7 @@ A mod for [Minetest][] that illuminates the area around a player when equipped w
 
 ### Requirements:
 
-- Minetest minimum version: ???
+- Minetest minimum version: 5.0.0
 - Depends: none
 - Optional depends: default (for torch & megatorch)
 

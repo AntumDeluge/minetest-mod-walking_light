@@ -1,4 +1,7 @@
 
+local S = core.get_translator(walking_light.modname)
+
+
 core.register_node("walking_light:light_debug", {
 	drawtype = "glasslike",
 	tiles = {"walking_light_debug.png"},
@@ -31,7 +34,7 @@ core.register_node("walking_light:light", {
 
 if walking_light.enable_megatorch and core.get_modpath("default") then
 	core.register_node("walking_light:megatorch", {
-		description = "Megatorch",
+		description = S("Megatorch"),
 		drawtype = "torchlike",
 		tiles = {
 			{

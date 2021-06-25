@@ -11,6 +11,7 @@ v1.0
 - segregated code into modules
 - removed walking_light:pick_mese & walking_light:helmet_diamond (mods should register their own light items)
 - megatorch can be disabled via setting
+- added localization support
 
 petermaloney
 ------------
