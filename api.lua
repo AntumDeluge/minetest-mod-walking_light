@@ -27,7 +27,7 @@ local light_armor = {}
 function walking_light.register_item(item)
 	for _, li in ipairs(light_items) do
 		if item == li then
-			core.log("warning", "[walking_light] \"" .. item .. "\" is already light item.")
+			walking_light.log("warning", "\"" .. item .. "\" is already light item.")
 			return
 		end
 	end
@@ -41,7 +41,7 @@ function walking_light.register_armor(iname, litem)
 
 	for _, a in ipairs(light_armor) do
 		if iname == a then
-			core.log("warning", "[walking_light] \"" .. iname .. "\" is already light armor.")
+			walking_light.log("warning", "\"" .. iname .. "\" is already light armor.")
 		end
 	end
 
@@ -130,7 +130,7 @@ end
 
 local function mt_get_node_or_nil(pos)
 	if pos == nil then
-		print("ERROR: walking_light.mt_get_node_or_nil(), pos is nil")
+		walking_light.log("error", "mt_get_node_or_nil(), pos is nil")
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
@@ -141,6 +141,7 @@ local function mt_get_node_or_nil(pos)
 		core.get_voxel_manip():read_from_map(pos, pos)
 		node = core.get_node(pos)
 	end
+
 	-- If node.name is "ignore" here, the map probably isn't generated at pos.
 	return node
 
@@ -148,15 +149,16 @@ end
 
 function mt_add_node(pos, sometable)
 	if pos == nil then
-		print("ERROR: walking_light.mt_add_node(), pos is nil")
+		walking_light.log("error", "mt_add_node(), pos is nil")
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
 	if sometable == nil then
-		print("ERROR: walking_light.mt_add_node(), sometable is nil")
+		walking_light.log("error", "mt_add_node(), sometable is nil")
 		print(debug.traceback("Current Callstack:\n"))
 		return nil
 	end
+
 	core.add_node(pos, sometable)
 end
 
@@ -171,6 +173,7 @@ local function poseq(pos1, pos2)
 	if pos1 == nil or pos2 == nil then
 		return false
 	end
+
 	return pos1.x == pos2.x and pos1.y == pos2.y and pos1.z == pos2.z
 end
 
@@ -184,6 +187,7 @@ local function player_moved(player)
 		-- if oldpos is nil, we assume they just logged in, so consider them moved
 		return true
 	end
+
 	return false
 end
 
@@ -216,7 +220,7 @@ local function table_insert_pos(t, pos)
 end
 
 local function is_light(node)
-	if node ~= nil and node ~= "ignore" and( node.name == "walking_light:light" or node.name == "walking_light:light_debug" ) then
+	if node ~= nil and node ~= "ignore" and (node.name == "walking_light:light" or node.name == "walking_light:light_debug") then
 		return true
 	end
 	return false
@@ -237,10 +241,10 @@ function remove_light(player, pos)
 		end
 	else
 		if node ~= nil then
-			print("WARNING: walking_light.remove_light(), pos = " .. dumppos(pos) .. ", tried to remove light but node was " .. node.name)
+			walking_light.log("warning", "remove_light(), pos = " .. dumppos(pos) .. ", tried to remove light but node was " .. node.name)
 			table_remove_pos(light_positions[player_name], pos)
 		else
-			print("WARNING: walking_light.remove_light(), pos = " .. dumppos(pos) .. ", tried to remove light but node was nil")
+			walking_light.log("warning", "remove_light(), pos = " .. dumppos(pos) .. ", tried to remove light but node was nil")
 		end
 	end
 end
@@ -266,6 +270,7 @@ local function can_add_light(pos)
 	elseif is_light(node) then
 		return true
 	end
+
 	return false
 end
 
@@ -280,38 +285,38 @@ local function pick_light_position_regular(player, pos)
 	-- if pos is not possible, try the old player position first, to make it more likely that it has a line of sight
 	local player_name = player:get_player_name()
 	local oldplayerpos = player_positions[player_name]
-	if oldplayerpos and can_add_light( vector.new(oldplayerpos.x, oldplayerpos.y + 1, oldplayerpos.z) ) then
+	if oldplayerpos and can_add_light(vector.new(oldplayerpos.x, oldplayerpos.y + 1, oldplayerpos.z)) then
 		return oldplayerpos
 	end
 
 	-- if not, try all positions around the pos
 	pos2 = vector.new(pos.x + 1, pos.y, pos.z)
-	if can_add_light( pos2 ) then
+	if can_add_light(pos2) then
 		return {pos2}
 	end
 
 	pos2 = vector.new(pos.x - 1, pos.y, pos.z)
-	if can_add_light( pos2 ) then
+	if can_add_light(pos2) then
 		return {pos2}
 	end
 
 	pos2 = vector.new(pos.x, pos.y, pos.z + 1)
-	if can_add_light( pos2 ) then
+	if can_add_light(pos2) then
 		return {pos2}
 	end
 
 	pos2 = vector.new(pos.x, pos.y, pos.z - 1)
-	if can_add_light( pos2 ) then
+	if can_add_light(pos2) then
 		return {pos2}
 	end
 
 	pos2 = vector.new(pos.x, pos.y + 1, pos.z)
-	if can_add_light( pos2 ) then
+	if can_add_light(pos2) then
 		return {pos2}
 	end
 
 	pos2 = vector.new(pos.x, pos.y - 1, pos.z)
-	if can_add_light( pos2 ) then
+	if can_add_light(pos2) then
 		return {pos2}
 	end
 
@@ -354,6 +359,7 @@ local function pick_light_position(player, pos, light_item)
 	if light_item == "walking_light:megatorch" then
 		return pick_light_position_mega(player, pos)
 	end
+
 	return pick_light_position_regular(player, pos)
 end
 
@@ -400,7 +406,7 @@ local function update_light_player(player)
 
 	-- check for a nil node where the player is; if it is nil, we assume the block is not loaded, so we return without updating player_positions
 	-- that way, it should add light next step
-	local node  = mt_get_node_or_nil(rounded_pos)
+	local node = mt_get_node_or_nil(rounded_pos)
 	if node == nil or node == "ignore" then
 		return
 	end
