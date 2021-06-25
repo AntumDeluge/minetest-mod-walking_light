@@ -63,7 +63,7 @@
 	<td class="summary">Sets debugging mode.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.register_item">walking_light.register_item (item)</a></td>
+	<td class="name" nowrap><a href="#walking_light.register_item">walking_light.register_item (iname[, radius])</a></td>
 	<td class="summary">Registers an item to emit light when wielded.</td>
 	</tr>
 	<tr>
@@ -71,7 +71,7 @@
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.register_armor">walking_light.register_armor (iname, litem)</a></td>
+	<td class="name" nowrap><a href="#walking_light.register_armor">walking_light.register_armor (iname[, radius[, litem]])</a></td>
 	<td class="summary">Registers an item to emit light when equipped in armor inventory.</td>
 	</tr>
 	<tr>
@@ -113,8 +113,12 @@
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.is_light_item">walking_light.is_light_item (item)</a></td>
+	<td class="name" nowrap><a href="#walking_light.is_light_item">walking_light.is_light_item (iname)</a></td>
 	<td class="summary">Checks if an item is registered as emitting light when wielded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.is_light_armor">walking_light.is_light_armor (iname)</a></td>
+	<td class="summary">Checks if an item is registered as emitting light when equipped in armor inventory.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#walking_light.wields_light">walking_light.wields_light (player)</a></td>
@@ -158,7 +162,7 @@
 </dd>
     <dt>
     <a name = "walking_light.register_item"></a>
-    <strong>walking_light.register_item (item)</strong>
+    <strong>walking_light.register_item (iname[, radius])</strong>
     </dt>
     <dd>
     Registers an item to emit light when wielded.
@@ -168,9 +172,14 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">item</span>
+        <li><span class="parameter">iname</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
          Item technical name.
+        </li>
+        <li><span class="parameter">radius</span>
+            <span class="types"><span class="type">int</span></span>
+         Distance light will reach (max: 10).
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -205,10 +214,12 @@
 </dd>
     <dt>
     <a name = "walking_light.register_armor"></a>
-    <strong>walking_light.register_armor (iname, litem)</strong>
+    <strong>walking_light.register_armor (iname[, radius[, litem]])</strong>
     </dt>
     <dd>
-    Registers an item to emit light when equipped in armor inventory.
+    Registers an item to emit light when equipped in armor inventory. </p>
+
+<p>  Note: light radius will be overridden by light-emitting item being wielded.
 
     </ul>
     </ul>
@@ -219,9 +230,15 @@
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
          Item technical name.
         </li>
+        <li><span class="parameter">radius</span>
+            <span class="types"><span class="type">int</span></span>
+         Distance light will reach (max: 10).
+         (<em>optional</em>)
+        </li>
         <li><span class="parameter">litem</span>
             <span class="types"><span class="type">bool</span></span>
          Whether or not this item should also be registered with <a href="../topics/methods.html#walking_light.register_item">walking_light.register_item</a>.
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -245,9 +262,7 @@
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
-
-
-
+        Table indexed by key.
     </ol>
 
 
@@ -483,7 +498,7 @@
 </dd>
     <dt>
     <a name = "walking_light.is_light_item"></a>
-    <strong>walking_light.is_light_item (item)</strong>
+    <strong>walking_light.is_light_item (iname)</strong>
     </dt>
     <dd>
     Checks if an item is registered as emitting light when wielded.
@@ -493,7 +508,36 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">item</span>
+        <li><span class="parameter">iname</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Item technical name.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code> if item is registered.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.is_light_armor"></a>
+    <strong>walking_light.is_light_armor (iname)</strong>
+    </dt>
+    <dd>
+    Checks if an item is registered as emitting light when equipped in armor inventory.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">iname</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
          Item technical name.
         </li>
@@ -564,7 +608,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2021-06-24 23:53:41 </i>
+<i style="float:right;">Last updated 2021-06-25 01:03:58 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
