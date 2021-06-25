@@ -467,6 +467,32 @@ local function add_light(player, pos)
 	return false
 end
 
+-- returns a string, the name of the item found that is a light item
+local function get_wielded_light_item(player)
+	local wielded_item = player:get_wielded_item():get_name()
+	if wielded_item ~= "" and walking_light.is_light_item(wielded_item) then
+		return wielded_item
+	end
+
+	-- check equipped armor
+	if core.get_modpath("3d_armor") then
+		local player_name = player:get_player_name()
+		if player_name then
+			local armor_inv = core.get_inventory({type="detached", name=player_name.."_armor"})
+			if armor_inv then
+				for k, stack in pairs(armor_inv:get_list("armor")) do
+					local item_name = stack:get_name()
+					if walking_light.is_light_item(item_name) then
+						return item_name
+					end
+				end
+			end
+		end
+	end
+
+	return nil
+end
+
 -- updates all the light around the player, depending on what they are wielding
 local function update_light_player(player)
 	-- if there is no player, there can be no update
@@ -538,32 +564,6 @@ function walking_light.is_light_item(item)
 	end
 
 	return false
-end
-
--- returns a string, the name of the item found that is a light item
-local function get_wielded_light_item(player)
-	local wielded_item = player:get_wielded_item():get_name()
-	if wielded_item ~= "" and walking_light.is_light_item(wielded_item) then
-		return wielded_item
-	end
-
-	-- check equipped armor
-	if core.get_modpath("3d_armor") then
-		local player_name = player:get_player_name()
-		if player_name then
-			local armor_inv = core.get_inventory({type="detached", name=player_name.."_armor"})
-			if armor_inv then
-				for k, stack in pairs(armor_inv:get_list("armor")) do
-					local item_name = stack:get_name()
-					if walking_light.is_light_item(item_name) then
-						return item_name
-					end
-				end
-			end
-		end
-	end
-
-	return nil
 end
 
 --- Checks if player is wielding a light-emitting item.
