@@ -12,6 +12,7 @@ v1.0
 - removed walking_light:pick_mese & walking_light:helmet_diamond (mods should register their own light items)
 - megatorch can be disabled via setting
 - added localization support
+- added option to set custom light radius when registering item or armor
 
 petermaloney
 ------------
