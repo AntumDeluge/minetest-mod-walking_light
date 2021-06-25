@@ -1,0 +1,571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Walking Light</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Walking Light</h1>
+
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Topics</h2>
+<ul class="">
+  <li><strong>methods</strong></li>
+  <li><a href="../topics/commands.html">commands</a></li>
+  <li><a href="../topics/settings.html">settings</a></li>
+  <li><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Topic <code>methods</code></h1>
+<p>walking_light Methods</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.set_debug">walking_light.set_debug (enabled)</a></td>
+	<td class="summary">Sets debugging mode.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.register_item">walking_light.register_item (item)</a></td>
+	<td class="summary">Registers an item to emit light when wielded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.addLightItem">walking_light.addLightItem (item)</a></td>
+	<td class="summary">DEPRECATED</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.register_armor">walking_light.register_armor (iname, litem)</a></td>
+	<td class="summary">Registers an item to emit light when equipped in armor inventory.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.get_light_items">walking_light.get_light_items ()</a></td>
+	<td class="summary">Retrieves list of items registered as emitting light when wielded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.getLightItems">walking_light.getLightItems ()</a></td>
+	<td class="summary">DEPRECATED</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.register_tool">walking_light.register_tool (tool)</a></td>
+	<td class="summary">DEPRECATED</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.mt_add_node">walking_light.mt_add_node (pos, sometable)</a></td>
+	<td class="summary">Adds a node to the world.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mt_add_node">mt_add_node (pos, sometable)</a></td>
+	<td class="summary">DEPRECATED</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.poseq">walking_light.poseq (pos1, pos2)</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#poseq">poseq (pos1, pos2)</a></td>
+	<td class="summary">DEPRECATED</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.remove_light">walking_light.remove_light ([player], pos)</a></td>
+	<td class="summary">Removes light at the given position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#remove_light">remove_light (player, pos)</a></td>
+	<td class="summary">DEPRECATED</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.is_light_item">walking_light.is_light_item (item)</a></td>
+	<td class="summary">Checks if an item is registered as emitting light when wielded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.wields_light">walking_light.wields_light (player)</a></td>
+	<td class="summary">Checks if player is wielding a light-emitting item.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#walking_light.update_node">walking_light.update_node ()</a></td>
+	<td class="summary">Updates light node texture.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "walking_light.set_debug"></a>
+    <strong>walking_light.set_debug (enabled)</strong>
+    </dt>
+    <dd>
+    Sets debugging mode.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">enabled</span>
+            <span class="types"><span class="type">bool</span></span>
+         Determines if debugging is enabled.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.register_item"></a>
+    <strong>walking_light.register_item (item)</strong>
+    </dt>
+    <dd>
+    Registers an item to emit light when wielded.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">item</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Item technical name.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.addLightItem"></a>
+    <strong>walking_light.addLightItem (item)</strong>
+    </dt>
+    <dd>
+    DEPRECATED   Use <a href="../topics/methods.html#walking_light.register_item">walking_light.register_item</a>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">item</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.register_armor"></a>
+    <strong>walking_light.register_armor (iname, litem)</strong>
+    </dt>
+    <dd>
+    Registers an item to emit light when equipped in armor inventory.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">iname</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Item technical name.
+        </li>
+        <li><span class="parameter">litem</span>
+            <span class="types"><span class="type">bool</span></span>
+         Whether or not this item should also be registered with <a href="../topics/methods.html#walking_light.register_item">walking_light.register_item</a>.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.get_light_items"></a>
+    <strong>walking_light.get_light_items ()</strong>
+    </dt>
+    <dd>
+    Retrieves list of items registered as emitting light when wielded.
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.getLightItems"></a>
+    <strong>walking_light.getLightItems ()</strong>
+    </dt>
+    <dd>
+    DEPRECATED   Use <a href="../topics/methods.html#walking_light.get_light_items">walking_light.get_light_items</a>
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.register_tool"></a>
+    <strong>walking_light.register_tool (tool)</strong>
+    </dt>
+    <dd>
+    DEPRECATED
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tool</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.mt_add_node"></a>
+    <strong>walking_light.mt_add_node (pos, sometable)</strong>
+    </dt>
+    <dd>
+    Adds a node to the world.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+         Position.
+        </li>
+        <li><span class="parameter">sometable</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mt_add_node"></a>
+    <strong>mt_add_node (pos, sometable)</strong>
+    </dt>
+    <dd>
+    DEPRECATED   Use <a href="../topics/methods.html#walking_light.mt_add_node">walking_light.mt_add_node</a>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos</span>
+
+
+
+        </li>
+        <li><span class="parameter">sometable</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.poseq"></a>
+    <strong>walking_light.poseq (pos1, pos2)</strong>
+    </dt>
+    <dd>
+
+
+
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos1</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">pos2</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "poseq"></a>
+    <strong>poseq (pos1, pos2)</strong>
+    </dt>
+    <dd>
+    DEPRECATED   Use <a href="../topics/methods.html#walking_light.poseq">walking_light.poseq</a>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos1</span>
+
+
+
+        </li>
+        <li><span class="parameter">pos2</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.remove_light"></a>
+    <strong>walking_light.remove_light ([player], pos)</strong>
+    </dt>
+    <dd>
+    Removes light at the given position.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+            <span class="types"><a class="type" href="https://minetest.gitlab.io/minetest/class-reference.html#objectref">ObjectRef</a></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">pos</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+         Posistion where light will be removed.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "remove_light"></a>
+    <strong>remove_light (player, pos)</strong>
+    </dt>
+    <dd>
+    DEPRECATED   Use <a href="../topics/methods.html#walking_light.remove_light">walking_light.remove_light</a>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+
+
+
+        </li>
+        <li><span class="parameter">pos</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.is_light_item"></a>
+    <strong>walking_light.is_light_item (item)</strong>
+    </dt>
+    <dd>
+    Checks if an item is registered as emitting light when wielded.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">item</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Item technical name.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code> if item is registered.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.wields_light"></a>
+    <strong>walking_light.wields_light (player)</strong>
+    </dt>
+    <dd>
+    Checks if player is wielding a light-emitting item.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+            <span class="types"><a class="type" href="https://minetest.gitlab.io/minetest/class-reference.html#objectref">ObjectRef</a></span>
+         Player to be checked.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code> if player is wielding registered item.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "walking_light.update_node"></a>
+    <strong>walking_light.update_node ()</strong>
+    </dt>
+    <dd>
+    Updates light node texture. </p>
+
+<p>  If debugging, node will display a marker, otherwise will be transparent.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2021-06-24 23:53:41 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
