@@ -22,7 +22,7 @@ local scripts = {
 	"api",
 	"chat",
 	"nodes",
-end
+}
 
 for _, sc in ipairs(scripts) do
 	dofile(walking_light.modpath .. "/" .. sc .. ".lua")
