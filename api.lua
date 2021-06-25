@@ -411,7 +411,7 @@ local function update_light_player(player)
 	end
 
 	-- figure out if they wield light; this will be nil if not
-	local wielded_item = walking_light.get_wielded_light_item(player)
+	local wielded_item = get_wielded_light_item(player)
 
 	local player_name = player:get_player_name()
 	local pos = player:get_pos()
@@ -474,7 +474,7 @@ function walking_light.is_light_item(item)
 end
 
 -- returns a string, the name of the item found that is a light item
-function walking_light.get_wielded_light_item(player)
+local function get_wielded_light_item(player)
 	local wielded_item = player:get_wielded_item():get_name()
 	if wielded_item ~= "" and walking_light.is_light_item(wielded_item) then
 		return wielded_item
@@ -501,13 +501,13 @@ end
 
 -- return true if player is wielding a light item
 function walking_light.wields_light(player)
-	return walking_light.get_wielded_light_item(player) ~= nil
+	return get_wielded_light_item(player) ~= nil
 end
 
 core.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
 	table.insert(players, player_name)
-	last_wielded[player_name] = walking_light.get_wielded_light_item(player)
+	last_wielded[player_name] = get_wielded_light_item(player)
 	local pos = player:get_pos()
 	player_positions[player_name] = nil
 	light_positions[player_name] = {}
