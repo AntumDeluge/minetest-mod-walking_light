@@ -3,4 +3,3 @@ TODO:
 - clean up
 - add API documentation
 - rename
-- fix walking_light_add_light chat command

@@ -28,7 +28,7 @@ core.register_chatcommand("walking_light_clear_light", {
 	end,
 })
 
---[[ broken
+-- FIXME: only adds one node, does not make use of "size" parameter
 core.register_chatcommand("walking_light_add_light", {
 	params = "<size>",
 	description = S("Add walking_light:light to a position, without a player owning it."),
@@ -47,7 +47,6 @@ core.register_chatcommand("walking_light_add_light", {
 		return true, S("Done.")
 	end,
 })
-]]
 
 core.register_chatcommand("walking_light_debug", {
 	description = S("Change to debug mode, so light blocks are visible."),

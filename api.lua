@@ -12,7 +12,7 @@ local last_wielded = {}
 local walking_light_debug = false
 
 -- name of light node, changed by toggling debug mode
-local walking_light_node = nil
+walking_light_node = nil
 
 function walking_light.set_debug(enabled)
 	walking_light_debug = enabled
