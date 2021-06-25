@@ -6,8 +6,11 @@ config="${docs}/config.ld"
 
 cd "${root}"
 
-# Clean old files
+# clean old files
 rm -rf "${docs}/api.html" "${docs}/topics"
 
-# Create new files
+# create new files
 ldoc -c "${config}" -d "${docs}" -o "api" "${root}"
+
+# add some adjustments
+sed -i -e 's/src="screenshot\.png"/src="..\/..\/screenshot.png"/g' "${docs}/topics/readme.md.html"
