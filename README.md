@@ -12,7 +12,7 @@ A mod for [Minetest][] that illuminates the area around a player when equipped w
 ### Licensing:
 
 - Code: [MIT](LICENSE.txt)
-- Textures: CC BY-SA
+- Textures: [CC0](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
 ### Requirements:
 

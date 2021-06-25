@@ -1,7 +1,9 @@
 
 v1.0
+----
 - forked from petermaloney @ Git commit 766ef0f ( https://github.com/petermaloney/walking_light/tree/766ef0f )
 - changed code license to MIT
+- re-created underlay image
 
 v0.7
 ----
