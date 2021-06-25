@@ -20,7 +20,6 @@ end
 
 -- list of items that use walking light
 local light_items = {
-	"default:torch",
 	"walking_light:megatorch",
 }
 
