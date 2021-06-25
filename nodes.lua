@@ -4,7 +4,7 @@ local S = core.get_translator(walking_light.modname)
 
 core.register_node("walking_light:light_debug", {
 	drawtype = "glasslike",
-	tiles = {"walking_light_debug.png"},
+	tiles = {"walking_light_underlay.png"},
 	inventory_image = core.inventorycube("walking_light.png"),
 	paramtype = "light",
 	walkable = false,
