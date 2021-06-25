@@ -4,6 +4,8 @@
 
 A mod for [Minetest][] that illuminates the area around a player when equipped with a light item.
 
+![screenshot](screenshot.png)
+
 #### History:
 
 - forked from [v0.6][forum] of Echo's walking_light
