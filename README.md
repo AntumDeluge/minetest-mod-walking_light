@@ -24,6 +24,7 @@ A mod for [Minetest][] that illuminates the area around a player when equipped w
 
 - [Forum][forum]
 - [Git repo](https://github.com/AntumMT/mod-walking_light)
+- [API](https://antummt.github.io/mod-walking_light/docs/api.html)
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
 
