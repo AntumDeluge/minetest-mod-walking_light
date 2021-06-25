@@ -3,3 +3,4 @@ TODO:
 - clean up
 - add API documentation
 - rename
+- walking_light_debug should only enable debugging for player invoking command
