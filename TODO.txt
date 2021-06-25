@@ -2,3 +2,5 @@
 TODO:
 - clean up
 - add localization support
+- add API documentation
+- rename
