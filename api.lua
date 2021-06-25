@@ -34,7 +34,14 @@ function walking_light.register_item(item)
 
 	table.insert(light_items, item)
 end
-walking_light.addLightItem = walking_light.register_item -- backward compat
+
+-- backward compat
+function walking_light.addLightItem(item)
+	walking_light.log("warning",
+		"\"walking_light.addLightItem\" is deprecated, use \"walking_light.register_item\"")
+
+	return walking_light.register_item(item)
+end
 
 function walking_light.register_armor(iname, litem)
 	if litem == nil then litem = true end
@@ -52,7 +59,13 @@ end
 function walking_light.get_light_items()
 	return light_items
 end
-walking_light.getLightItems = walking_light.get_light_items -- backward compat
+
+function walking_light.getLightItems()
+	walking_light.log("warning",
+		"\"walking_light.getLightItems\" is deprecated, use \"walking_light.get_light_items\"")
+
+	return walking_light.get_light_items()
+end
 
 function walking_light.register_tool(tool)
 	walking_light.log("warning", "\"walking_light.register_tool\" method is deprecated")
