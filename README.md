@@ -1,24 +1,32 @@
-minetest mod walking_light
+## Walking Light
 
-forked from 0.6 https://forum.minetest.net/viewtopic.php?f=11&t=2621&hilit=walking+light
+### Description:
 
-Licensing:
-==========
+A mod for [Minetest][] that illuminates the area around a player when equipped with a light item.
 
-If not noted elsewhere:
-    Code: WTFPL, textures: CC BY-SA
+#### History:
 
-Some textures taken from 3d_armor mod
-	these files are directly from the 3d_armor mod:
-		textures/walking_light_helmet_diamond.png
-		textures/walking_light_helmet_diamond_preview.png
-	parts of the following files came from 3d_armor's "3d_armor_inv_helmet_diamond.png": 
-		textures/walking_light_inv_helmet_diamond.png
-		textures/walking_light_inv_helmet_diamond.xcf
+- forked from [v0.6][forum] of Echo's walking_light
+- forked from [Git commit 766ef0f](https://github.com/petermaloney/walking_light/tree/766ef0f) of petermaloney's walking_light
 
-	License Textures: 2013 Ryan Jones - CC-BY-SA
+### Licensing:
 
-	see 3d_armor mod here
-	https://forum.minetest.net/viewtopic.php?f=11&t=4654
-	https://github.com/stujones11/minetest-3d_armor
+- Code: [MIT](LICENSE.txt)
+- Textures: CC BY-SA
 
+### Requirements:
+
+- Minetest minimum version: ???
+- Depends: default
+- Optional depends: none
+
+### Links:
+
+- [Forum][forum]
+- [Git repo](https://github.com/AntumMT/mod-walking_light)
+- [Changelog](changelog.txt)
+- [TODO](TODO.txt)
+
+
+[Minetest]: http://minetest.net/
+[forum]: https://forum.minetest.net/viewtopic.php?t=2621
