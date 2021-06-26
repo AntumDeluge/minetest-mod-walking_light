@@ -1,5 +1,3 @@
 
 TODO:
-- clean up
 - wlight_debug should only enable debugging for player invoking command
-- replace chat commands with single command "wlight"
