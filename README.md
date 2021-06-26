@@ -66,7 +66,6 @@ wlight.enable_megatorch
 
 **Alternative Mods:**
 
-- [![walking_light](https://img.shields.io/static/v1?label=GitHub&message=Walking Light&color=%23375a7f)](https://github.com/petermaloney/walking_light)
 - [![wielded_light](https://content.minetest.net/packages/bell07/wielded_light/shields/title/)](https://content.minetest.net/packages/bell07/wielded_light/)
 
 
