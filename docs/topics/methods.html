@@ -51,7 +51,7 @@
 <div id="content">
 
 <h1>Topic <code>methods</code></h1>
-<p>walking_light Methods</p>
+<p>wlight Methods</p>
 <p>
 
 </p>
@@ -60,35 +60,31 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.set_debug">walking_light.set_debug (enabled)</a></td>
+	<td class="name" nowrap><a href="#wlight.set_debug">wlight.set_debug (enabled)</a></td>
 	<td class="summary">Sets debugging mode.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.register_item">walking_light.register_item (iname[, radius])</a></td>
+	<td class="name" nowrap><a href="#wlight.register_item">wlight.register_item (iname[, radius])</a></td>
 	<td class="summary">Registers an item to emit light when wielded.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.addLightItem">walking_light.addLightItem (item)</a></td>
+	<td class="name" nowrap><a href="#wlight.addLightItem">wlight.addLightItem (item)</a></td>
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.register_armor">walking_light.register_armor (iname[, radius[, litem]])</a></td>
+	<td class="name" nowrap><a href="#wlight.register_armor">wlight.register_armor (iname[, radius[, litem]])</a></td>
 	<td class="summary">Registers an item to emit light when equipped in armor inventory.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.get_light_items">walking_light.get_light_items ()</a></td>
+	<td class="name" nowrap><a href="#wlight.get_light_items">wlight.get_light_items ()</a></td>
 	<td class="summary">Retrieves list of items registered as emitting light when wielded.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.getLightItems">walking_light.getLightItems ()</a></td>
+	<td class="name" nowrap><a href="#wlight.getLightItems">wlight.getLightItems ()</a></td>
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.register_tool">walking_light.register_tool (tool)</a></td>
-	<td class="summary">DEPRECATED</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#walking_light.mt_add_node">walking_light.mt_add_node (pos, sometable)</a></td>
+	<td class="name" nowrap><a href="#wlight.mt_add_node">wlight.mt_add_node (pos, sometable)</a></td>
 	<td class="summary">Adds a node to the world.</td>
 	</tr>
 	<tr>
@@ -96,7 +92,7 @@
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.poseq">walking_light.poseq (pos1, pos2)</a></td>
+	<td class="name" nowrap><a href="#wlight.poseq">wlight.poseq (pos1, pos2)</a></td>
 	<td class="summary">
 
 </td>
@@ -106,7 +102,7 @@
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.remove_light">walking_light.remove_light ([player], pos)</a></td>
+	<td class="name" nowrap><a href="#wlight.remove_light">wlight.remove_light ([player], pos)</a></td>
 	<td class="summary">Removes light at the given position.</td>
 	</tr>
 	<tr>
@@ -114,19 +110,19 @@
 	<td class="summary">DEPRECATED</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.is_light_item">walking_light.is_light_item (iname)</a></td>
+	<td class="name" nowrap><a href="#wlight.is_light_item">wlight.is_light_item (iname)</a></td>
 	<td class="summary">Checks if an item is registered as emitting light when wielded.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.is_light_armor">walking_light.is_light_armor (iname)</a></td>
+	<td class="name" nowrap><a href="#wlight.is_light_armor">wlight.is_light_armor (iname)</a></td>
 	<td class="summary">Checks if an item is registered as emitting light when equipped in armor inventory.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.wields_light">walking_light.wields_light (player)</a></td>
+	<td class="name" nowrap><a href="#wlight.wields_light">wlight.wields_light (player)</a></td>
 	<td class="summary">Checks if player is wielding a light-emitting item.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#walking_light.update_node">walking_light.update_node ()</a></td>
+	<td class="name" nowrap><a href="#wlight.update_node">wlight.update_node ()</a></td>
 	<td class="summary">Updates light node texture.</td>
 	</tr>
 </table>
@@ -139,8 +135,8 @@
 
     <dl class="function">
     <dt>
-    <a name = "walking_light.set_debug"></a>
-    <strong>walking_light.set_debug (enabled)</strong>
+    <a name = "wlight.set_debug"></a>
+    <strong>wlight.set_debug (enabled)</strong>
     </dt>
     <dd>
     Sets debugging mode.
@@ -162,8 +158,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.register_item"></a>
-    <strong>walking_light.register_item (iname[, radius])</strong>
+    <a name = "wlight.register_item"></a>
+    <strong>wlight.register_item (iname[, radius])</strong>
     </dt>
     <dd>
     Registers an item to emit light when wielded.
@@ -190,11 +186,11 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.addLightItem"></a>
-    <strong>walking_light.addLightItem (item)</strong>
+    <a name = "wlight.addLightItem"></a>
+    <strong>wlight.addLightItem (item)</strong>
     </dt>
     <dd>
-    DEPRECATED   Use <a href="../topics/methods.html#walking_light.register_item">walking_light.register_item</a>
+    DEPRECATED   Use <a href="../topics/methods.html#wlight.register_item">wlight.register_item</a>
 
     </ul>
     </ul>
@@ -214,8 +210,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.register_armor"></a>
-    <strong>walking_light.register_armor (iname[, radius[, litem]])</strong>
+    <a name = "wlight.register_armor"></a>
+    <strong>wlight.register_armor (iname[, radius[, litem]])</strong>
     </dt>
     <dd>
     Registers an item to emit light when equipped in armor inventory. </p>
@@ -238,7 +234,7 @@
         </li>
         <li><span class="parameter">litem</span>
             <span class="types"><span class="type">bool</span></span>
-         Whether or not this item should also be registered with <a href="../topics/methods.html#walking_light.register_item">walking_light.register_item</a>.
+         Whether or not this item should also be registered with <a href="../topics/methods.html#wlight.register_item">wlight.register_item</a>.
          (<em>optional</em>)
         </li>
     </ul>
@@ -249,8 +245,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.get_light_items"></a>
-    <strong>walking_light.get_light_items ()</strong>
+    <a name = "wlight.get_light_items"></a>
+    <strong>wlight.get_light_items ()</strong>
     </dt>
     <dd>
     Retrieves list of items registered as emitting light when wielded.
@@ -271,11 +267,11 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.getLightItems"></a>
-    <strong>walking_light.getLightItems ()</strong>
+    <a name = "wlight.getLightItems"></a>
+    <strong>wlight.getLightItems ()</strong>
     </dt>
     <dd>
-    DEPRECATED   Use <a href="../topics/methods.html#walking_light.get_light_items">walking_light.get_light_items</a>
+    DEPRECATED   Use <a href="../topics/methods.html#wlight.get_light_items">wlight.get_light_items</a>
 
     </ul>
     </ul>
@@ -287,32 +283,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.register_tool"></a>
-    <strong>walking_light.register_tool (tool)</strong>
-    </dt>
-    <dd>
-    DEPRECATED
-
-    </ul>
-    </ul>
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">tool</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "walking_light.mt_add_node"></a>
-    <strong>walking_light.mt_add_node (pos, sometable)</strong>
+    <a name = "wlight.mt_add_node"></a>
+    <strong>wlight.mt_add_node (pos, sometable)</strong>
     </dt>
     <dd>
     Adds a node to the world.
@@ -344,7 +316,7 @@
     <strong>mt_add_node (pos, sometable)</strong>
     </dt>
     <dd>
-    DEPRECATED   Use <a href="../topics/methods.html#walking_light.mt_add_node">walking_light.mt_add_node</a>
+    DEPRECATED   Use <a href="../topics/methods.html#wlight.mt_add_node">wlight.mt_add_node</a>
 
     </ul>
     </ul>
@@ -369,8 +341,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.poseq"></a>
-    <strong>walking_light.poseq (pos1, pos2)</strong>
+    <a name = "wlight.poseq"></a>
+    <strong>wlight.poseq (pos1, pos2)</strong>
     </dt>
     <dd>
 
@@ -414,7 +386,7 @@
     <strong>poseq (pos1, pos2)</strong>
     </dt>
     <dd>
-    DEPRECATED   Use <a href="../topics/methods.html#walking_light.poseq">walking_light.poseq</a>
+    DEPRECATED   Use <a href="../topics/methods.html#wlight.poseq">wlight.poseq</a>
 
     </ul>
     </ul>
@@ -439,8 +411,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.remove_light"></a>
-    <strong>walking_light.remove_light ([player], pos)</strong>
+    <a name = "wlight.remove_light"></a>
+    <strong>wlight.remove_light ([player], pos)</strong>
     </dt>
     <dd>
     Removes light at the given position.
@@ -473,7 +445,7 @@
     <strong>remove_light (player, pos)</strong>
     </dt>
     <dd>
-    DEPRECATED   Use <a href="../topics/methods.html#walking_light.remove_light">walking_light.remove_light</a>
+    DEPRECATED   Use <a href="../topics/methods.html#wlight.remove_light">wlight.remove_light</a>
 
     </ul>
     </ul>
@@ -498,8 +470,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.is_light_item"></a>
-    <strong>walking_light.is_light_item (iname)</strong>
+    <a name = "wlight.is_light_item"></a>
+    <strong>wlight.is_light_item (iname)</strong>
     </dt>
     <dd>
     Checks if an item is registered as emitting light when wielded.
@@ -527,8 +499,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.is_light_armor"></a>
-    <strong>walking_light.is_light_armor (iname)</strong>
+    <a name = "wlight.is_light_armor"></a>
+    <strong>wlight.is_light_armor (iname)</strong>
     </dt>
     <dd>
     Checks if an item is registered as emitting light when equipped in armor inventory.
@@ -556,8 +528,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.wields_light"></a>
-    <strong>walking_light.wields_light (player)</strong>
+    <a name = "wlight.wields_light"></a>
+    <strong>wlight.wields_light (player)</strong>
     </dt>
     <dd>
     Checks if player is wielding a light-emitting item.
@@ -585,8 +557,8 @@
 
 </dd>
     <dt>
-    <a name = "walking_light.update_node"></a>
-    <strong>walking_light.update_node ()</strong>
+    <a name = "wlight.update_node"></a>
+    <strong>wlight.update_node ()</strong>
     </dt>
     <dd>
     Updates light node texture. </p>
@@ -609,7 +581,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2021-06-25 01:32:19 </i>
+<i style="float:right;">Last updated 2021-06-26 10:49:21 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
