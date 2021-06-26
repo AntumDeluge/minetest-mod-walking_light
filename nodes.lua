@@ -5,7 +5,7 @@ local S = core.get_translator(wlight.modname)
 core.register_node("wlight:light_debug", {
 	drawtype = "glasslike",
 	tiles = {"wlight_inv_underlay.png"},
-	inventory_image = core.inventorycube("wlight_light.png"),
+	inventory_image = core.inventorycube("wlight_inv_underlay.png"),
 	paramtype = "light",
 	walkable = false,
 	is_ground_content = true,
