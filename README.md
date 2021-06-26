@@ -21,12 +21,13 @@ A mod for [Minetest][] that illuminates the area around a player when equipped w
 - Minetest minimum version: 5.0.0
 - Depends: none
 - Optional depends: default (for torch & megatorch)
+- Privileges: server (for using chat commands)
 
 ### Links:
 
 - [Forum][forum]
-- [Git repo](https://github.com/AntumMT/mod-walking_light)
-- [API](https://antummt.github.io/mod-walking_light/docs/api.html)
+- [Git repo](https://github.com/AntumMT/mod-wlight)
+- [API](https://antummt.github.io/mod-wlight/docs/api.html)
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
 

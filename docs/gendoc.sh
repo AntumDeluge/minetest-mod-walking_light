@@ -14,9 +14,9 @@ ldoc -c "${config}" -d "${docs}" -o "api" "${root}"
 
 # add some adjustments
 
-sed -i -e 's|src="screenshot\.png"|src="https://raw.githubusercontent.com/AntumMT/mod-walking_light/master/screenshot.png" width="600"|g' "${docs}/topics/readme.md.html"
+sed -i -e 's|src="screenshot\.png"|src="https://raw.githubusercontent.com/AntumMT/mod-wlight/master/screenshot.png" width="600"|g' "${docs}/topics/readme.md.html"
 
-for html in $(grep -rl --include="*.html" "data/textures/walking_light_underlay.png" "${docs}"); do
-	sed -i -e 's|data/textures/walking_light_underlay\.png"|data/icon.png" width="32"|g' "${html}"
+for html in $(grep -rl --include="*.html" "data/textures/wlight_inv_underlay.png" "${docs}"); do
+	sed -i -e 's|data/textures/wlight_inv_underlay\.png"|data/icon.png" width="32"|g' "${html}"
 done
-mv "${docs}/data/walking_light_underlay.png" "${docs}/data/icon.png"
+mv "${docs}/data/wlight_inv_underlay.png" "${docs}/data/icon.png"

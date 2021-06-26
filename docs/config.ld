@@ -4,7 +4,7 @@ format = "markdown"
 not_luadoc = true
 boilerplate = false
 readme = "README.md"
-icon = "textures/walking_light_underlay.png"
+icon = "textures/wlight_inv_underlay.png"
 
 file = {"settings.lua", "api.lua", "chat.lua"}
 

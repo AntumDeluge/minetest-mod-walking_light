@@ -2,6 +2,7 @@
 v1.0
 ----
 - forked from petermaloney @ Git commit 766ef0f ( https://github.com/petermaloney/walking_light/tree/766ef0f )
+- renamed to "wlight"
 - changed code license to MIT
 - added mod.conf
 - re-created underlay image

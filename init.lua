@@ -1,15 +1,18 @@
 
-walking_light = {}
-walking_light.modname = core.get_current_modname()
-walking_light.modpath = core.get_modpath(walking_light.modname)
+wlight = {}
+wlight.modname = core.get_current_modname()
+wlight.modpath = core.get_modpath(wlight.modname)
 
-function walking_light.log(lvl, msg)
+-- override walking_light
+walking_light = wlight
+
+function wlight.log(lvl, msg)
 	if not msg then
 		msg = lvl
 		lvl = nil
 	end
 
-	msg = "[" .. walking_light.modname .. "] " .. msg
+	msg = "[" .. wlight.modname .. "] " .. msg
 	if not lvl then
 		core.log(msg)
 	else
@@ -26,10 +29,10 @@ local scripts = {
 }
 
 for _, sc in ipairs(scripts) do
-	dofile(walking_light.modpath .. "/" .. sc .. ".lua")
+	dofile(wlight.modpath .. "/" .. sc .. ".lua")
 end
 
 
 if core.registered_items["default:torch"] then
-	walking_light.register_item("default:torch")
+	wlight.register_item("default:torch")
 end

@@ -1,12 +1,12 @@
 
---- walking_light Settings
+--- wlight Settings
 --
 --  @topic settings
 
 
---- Enables walking_light:megatorch item.
+--- Enables wlight:megatorch item.
 --
---  @setting walking_light.enable_megatorch
+--  @setting wlight.enable_megatorch
 --  @settype bool
 --  @default true
-walking_light.enable_megatorch = core.settings:get_bool("walking_light.enable_megatorch", true)
+wlight.enable_megatorch = core.settings:get_bool("wlight.enable_megatorch", true)
