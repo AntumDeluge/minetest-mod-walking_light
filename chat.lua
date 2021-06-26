@@ -22,7 +22,7 @@ local S = core.get_translator(wlight.modname)
 --    - debug:  Toggle illuminated nodes visible mark for debugging.
 --
 --  Options:
---    - radius: Area radius (default: 20).
+--    - radius: Area radius (add default: 0, remove default: 20).
 --
 --  Example:
 --    /wlight add 5
@@ -35,7 +35,7 @@ core.register_chatcommand(wlight.modname, {
 		.. "\n  remove: " .. S("Remove lighting from current position.")
 		.. "\n  debug:  " .. S("Toggle illuminated nodes visible mark for debugging.")
 		.. "\n\n" .. S("Options:")
-		.. "\n  " .. S("radius") .. ": " .. S("Area radius (default: 20)."),
+		.. "\n  " .. S("radius") .. ": " .. S("Area radius (add default: 0, remove default: 20)."),
 	func = function(name, param)
 		local command
 		local radius
@@ -47,7 +47,12 @@ core.register_chatcommand(wlight.modname, {
 			command = param
 		end
 
-		radius = radius or 20
+		if not radius then
+			radius = 0
+			if command == "remove" then
+				radius = 20
+			end
+		end
 
 		if command == "" then
 			core.chat_send_player(name, "\n" .. S("Missing command parameter."))
@@ -62,13 +67,19 @@ core.register_chatcommand(wlight.modname, {
 		local pos = vector.round(core.get_player_by_name(name):get_pos())
 
 		if command == "debug" then
-			wlight.set_debug(not wlight_debug)
+			wlight.set_debug(not wlight.debug_enabled())
 			wlight.update_node()
 		elseif command == "add" then
-			-- FIXME: only adds one node, does not make use of "radius" parameter
 			pos = vector.new(pos.x, pos.y + 1, pos.z)
 			if pos then
-				wlight.mt_add_node(pos, {type="node", name=wlight_node})
+				local pmin = {x=pos.x-radius, y=pos.y-radius, z=pos.z-radius}
+				local pmax = {x=pos.x+radius, y=pos.y+radius, z=pos.z+radius}
+				local near_nodes = core.find_nodes_in_area(pmin, pmax, "air", true)
+				if near_nodes.air then
+					for _, npos in ipairs(near_nodes.air) do
+						wlight.mt_add_node(npos, {type="node", name=wlight_node})
+					end
+				end
 			end
 		elseif command == "remove" then
 			for _, v in ipairs({"wlight:light", "wlight:light_debug"}) do

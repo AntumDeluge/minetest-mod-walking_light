@@ -12,7 +12,7 @@ Missing radius parameter.=
 Add lighting to current position.=
 Remove lighting from current position.=
 Toggle illuminated nodes visible mark for debugging.=
-Area radius (default: 20).=
+Area radius (add default: 0, remove default: 20).=
 Failed... infinite loop detected.=
 Done.=
 

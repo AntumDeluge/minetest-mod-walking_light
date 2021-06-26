@@ -26,6 +26,13 @@ function wlight.set_debug(enabled)
 	wlight_debug = enabled
 end
 
+--- Checks if debugging is enabled.
+--
+--  @treturn bool
+function wlight.debug_enabled()
+	return wlight_debug == true
+end
+
 -- list of items that use walking light when wielded
 local light_items = {}
 
