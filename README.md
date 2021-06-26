@@ -52,6 +52,7 @@ wlight.enable_megatorch
 
 ### Links:
 
+- [![ContentDB](https://content.minetest.net/packages/AntumDeluge/wlight/shields/title/)](https://content.minetest.net/packages/AntumDeluge/wlight/)
 - [Forum](https://forum.minetest.net/viewtopic.php?t=26938)
 - [Git repo](https://github.com/AntumMT/mod-wlight)
 - [API](https://antummt.github.io/mod-wlight/docs/api.html)
@@ -65,6 +66,7 @@ wlight.enable_megatorch
 
 **Alternative Mods:**
 
+- [![walking_light](https://img.shields.io/static/v1?label=GitHub&message=Walking Light&color=%23375a7f)](https://github.com/petermaloney/walking_light)
 - [![wielded_light](https://content.minetest.net/packages/bell07/wielded_light/shields/title/)](https://content.minetest.net/packages/bell07/wielded_light/)
 
 
