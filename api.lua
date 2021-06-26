@@ -107,30 +107,6 @@ function walking_light.getLightItems()
 	return walking_light.get_light_items()
 end
 
---- DEPRECATED
-function walking_light.register_tool(tool)
-	walking_light.log("warning", "\"walking_light.register_tool\" method is deprecated")
-
-	local item, default, definition
-	item = "walking_light:" .. tool .. "_mese"
-	default = "default:" .. tool .. "_mese"
-
-	definition = table.copy(core.registered_items[default])
-	definition.description = definition.description .. " with light"
-	definition.inventory_image = "walking_light_mese" .. tool .. ".png"
-
-	core.register_tool(item, definition)
-	core.register_craft({
-		output = item,
-		recipe = {
-			{"default:torch"},
-			{ default },
-		}
-	})
-
-	walking_light.register_item(item)
-end
-
 -- from http://lua-users.org/wiki/IteratorsTutorial
 -- useful for removing things from a table because removing from the middle makes it skip elements otherwise
 local function ripairs(t)
