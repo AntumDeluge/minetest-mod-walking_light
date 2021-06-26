@@ -61,7 +61,11 @@ wlight.enable_megatorch
 	- [Forum][forum.echo]
 	- [v0.6 release](https://github.com/AntumMT/mod-wlight/releases/tag/v0.6)
 - petermaloney's *walking_light*:
-	- [![ContentDB](https://content.minetest.net/packages/bell07/wielded_light/shields/title/)](https://content.minetest.net/packages/bell07/wielded_light/)
+	- [![walking_light](https://content.minetest.net/packages/bell07/wielded_light/shields/title/)](https://content.minetest.net/packages/bell07/wielded_light/)
+
+**Alternative Mods:**
+
+- [![wielded_light](https://content.minetest.net/packages/bell07/wielded_light/shields/title/)](https://content.minetest.net/packages/bell07/wielded_light/)
 
 
 [forum.echo]: https://forum.minetest.net/viewtopic.php?t=2621
