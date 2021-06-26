@@ -61,7 +61,7 @@ wlight.enable_megatorch
 	- [Forum][forum.echo]
 	- [v0.6 release](https://github.com/AntumMT/mod-wlight/releases/tag/v0.6)
 - petermaloney's *walking_light*:
-	- [![walking_light](https://content.minetest.net/packages/bell07/wielded_light/shields/title/)](https://content.minetest.net/packages/bell07/wielded_light/)
+	- [Git repo](https://github.com/petermaloney/walking_light)
 
 **Alternative Mods:**
 
