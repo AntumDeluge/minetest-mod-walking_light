@@ -2,7 +2,7 @@
 
 ### Description:
 
-A mod for [Minetest](http://minetest.net/) that illuminates the area around a player when wielding a light-emitting item. Also supports equipped armor with [3d_armor]().
+A mod for [Minetest](http://minetest.net/) that illuminates the area around a player when wielding a light-emitting item. Also supports equipped armor with [3d_armor](https://content.minetest.net/packages/stu/3d_armor/).
 
 ![screenshot](screenshot.png)
 
